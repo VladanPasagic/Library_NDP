@@ -3,6 +3,8 @@ package org.unibl.etf.mdp.library.services;
 import java.io.IOException;
 import java.net.URL;
 
+import org.unibl.etf.mdp.library.services.interfaces.ISceneSwitcherService;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,8 +12,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class SceneSwitcherService {
-	private static SceneSwitcherService instance = null;
+public class SceneSwitcherService implements ISceneSwitcherService{
+private static SceneSwitcherService instance = null;
 	
 	private Stage stage;
 	private Scene scene;
