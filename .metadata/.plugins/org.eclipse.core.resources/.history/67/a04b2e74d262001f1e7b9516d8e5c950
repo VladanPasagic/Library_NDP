@@ -1,0 +1,5 @@
+package org.unibl.etf.mdp.library.services;
+
+public class RedisService {
+	private final String CONNECTION_STRING = 
+}

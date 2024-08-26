@@ -1,0 +1,37 @@
+package org.unibl.etf.mdp.library.controllers;
+
+
+import java.io.IOException;
+
+import org.unibl.etf.mdp.library.services.SceneSwitcherService;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+
+public class LoginController {
+	
+	private SceneSwitcherService sceneSwitcherService = SceneSwitcherService.getSwitcherService();
+	
+	@FXML
+	private String username;
+	
+	@FXML
+	private String password;
+	
+	@FXML
+	private void handleLogin(ActionEvent event)
+	{
+		
+	}
+	
+	@FXML
+	private void handleSwitchToRegister(ActionEvent event)
+	{
+		try {
+			
+			sceneSwitcherService.switchScene(null, event);
+		} catch (IOException e) {
+			// TODO: handle exception
+		}
+	}
+}
