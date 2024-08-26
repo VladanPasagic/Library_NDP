@@ -1,5 +1,0 @@
-package org.unibl.etf.mdp.library.repositories.interfaces;
-
-public interface IRedisService {
-	
-}

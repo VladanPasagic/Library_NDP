@@ -1,7 +1,0 @@
-package org.unibl.etf.mdp.library.services.interfaces;
-
-public interface IPropertyLoaderService {
-	IPropertyLoaderService load();
-	
-	String getProperty(String key);
-}
