@@ -1,6 +1,7 @@
 package org.unibl.etf.mdp.library.repositories;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.unibl.etf.mdp.library.entities.BookReservationEntity;
 import org.unibl.etf.mdp.library.repositories.interfaces.IBookReservationRepository;
@@ -14,7 +15,7 @@ public class BookReservationRepository implements IBookReservationRepository{
 	}
 
 	@Override
-	public BookReservationEntity get(int id) {
+	public BookReservationEntity get(UUID id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -26,7 +27,7 @@ public class BookReservationRepository implements IBookReservationRepository{
 	}
 
 	@Override
-	public void remove(int id) {
+	public void remove(UUID id) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -44,25 +45,25 @@ public class BookReservationRepository implements IBookReservationRepository{
 	}
 
 	@Override
-	public BookReservationEntity find(int id) {
+	public BookReservationEntity find(UUID id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int findIndex(int id) {
+	public int findIndex(UUID id) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public boolean confirm(int id) {
+	public boolean confirm(UUID id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean deny(int id) {
+	public boolean deny(UUID id) {
 		// TODO Auto-generated method stub
 		return false;
 	}

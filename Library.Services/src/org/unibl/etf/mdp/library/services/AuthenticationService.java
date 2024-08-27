@@ -1,32 +1,45 @@
 package org.unibl.etf.mdp.library.services;
 
+import org.unibl.etf.mdp.library.entities.UserEntity;
+import org.unibl.etf.mdp.library.repositories.UserRepository;
+import org.unibl.etf.mdp.library.repositories.interfaces.IUserRepository;
 import org.unibl.etf.mdp.library.requests.LoginRequest;
 import org.unibl.etf.mdp.library.requests.RegistrationRequest;
 import org.unibl.etf.mdp.library.services.interfaces.IAuthenticationService;
+import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
 
-public class AuthenticationService implements IAuthenticationService{
+public class AuthenticationService implements IAuthenticationService {
 
 	private static IAuthenticationService instance = null;
-	
-	private AuthenticationService() {
+	private IUserRepository userRepository;
+
+	private AuthenticationService(ILoggerService loggerService) {
+		userRepository = UserRepository.getRepository(loggerService);
 	}
-	
-	public static IAuthenticationService getInstance() {
+
+	public static IAuthenticationService getInstance(ILoggerService loggerService) {
 		if (instance == null)
-			instance = new AuthenticationService();
+			instance = new AuthenticationService(loggerService);
 		return instance;
 	}
-	
+
 	@Override
 	public boolean login(LoginRequest loginRequest) {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
 	@Override
 	public boolean register(RegistrationRequest registrationRequest) {
-		// TODO Auto-generated method stub
-		return false;
+		if (userRepository.findByEmail(registrationRequest.getEmail()) != null) {
+			return false;
+		}
+
+		userRepository.add(new UserEntity(registrationRequest.getFirstName(), registrationRequest.getLastName(),
+				registrationRequest.getAddress(), registrationRequest.getEmail(), registrationRequest.getUsername(),
+				registrationRequest.getPassword()));
+
+		return true;
 	}
 
 }

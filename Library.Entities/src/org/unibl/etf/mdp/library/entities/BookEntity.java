@@ -1,17 +1,15 @@
 package org.unibl.etf.mdp.library.entities;
 
+import java.util.UUID;
+
 public class BookEntity {
-	private int id;
+	private UUID id;
 	private String ISBN;
 	private String name;
 	private String author;
 
-	public int getId() {
+	public UUID getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getISBN() {

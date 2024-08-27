@@ -1,34 +1,31 @@
 package org.unibl.etf.mdp.library.entities;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class BookReservationEntity {
-	private int id;
-	private int bookId;
-	private int userId;
+	private UUID id;
+	private UUID bookId;
+	private UUID userId;
 	private Date date;
 
-	public int getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getBookId() {
+	public UUID getBookId() {
 		return bookId;
 	}
 
-	public void setBookId(int bookId) {
+	public void setBookId(UUID bookId) {
 		this.bookId = bookId;
 	}
 
-	public int getUserId() {
+	public UUID getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(UUID userId) {
 		this.userId = userId;
 	}
 

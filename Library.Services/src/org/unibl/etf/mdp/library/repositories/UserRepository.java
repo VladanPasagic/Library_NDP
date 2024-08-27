@@ -1,76 +1,96 @@
 package org.unibl.etf.mdp.library.repositories;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.unibl.etf.mdp.library.entities.UserEntity;
+import org.unibl.etf.mdp.library.entities.UsersEntity;
+import org.unibl.etf.mdp.library.helpers.XMLUtils;
 import org.unibl.etf.mdp.library.repositories.interfaces.IUserRepository;
+import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
 
-public class UserRepository implements IUserRepository{
+public class UserRepository implements IUserRepository {
 
-	private static String FILE_PATH = "";
-	private List<UserEntity> users = new ArrayList<UserEntity>();
-	
+	private static IUserRepository instance = null;
+	private final String XML_FILE = "USERS_XML_PATH";
+	private UsersEntity users = new UsersEntity();
+	private XMLUtils xmlUtils;
+
+	private UserRepository(ILoggerService loggerService) {
+		xmlUtils = new XMLUtils(loggerService);
+		load();
+	}
+
+	public static IUserRepository getRepository(ILoggerService loggerService) {
+		if (instance == null)
+			instance = new UserRepository(loggerService);
+		return instance;
+	}
+
 	@Override
-	public void remove(int id) {
+	public void remove(UUID id) {
 		int index = findIndex(id);
-		if (index !=-1)
-		{
-			users.remove(index);
+		if (index != -1) {
+			users.getUsers().remove(index);
 		}
 		save();
 	}
 
 	@Override
 	public void save() {
-		// TODO Auto-generated method stub
-		
+		xmlUtils.write(XML_FILE, UsersEntity.class, users);
 	}
 
 	@Override
 	public void load() {
-		// TODO Auto-generated method stub
-		
+		users = xmlUtils.read(XML_FILE, UsersEntity.class);
+		if (users == null)
+			users = new UsersEntity();
 	}
 
 	@Override
 	public void add(UserEntity item) {
-		users.add(item);
+		users.getUsers().add(item);
 		save();
 	}
 
 	@Override
-	public UserEntity get(int id) {
+	public UserEntity get(UUID id) {
 		UserEntity user = find(id);
 		return user;
 	}
 
 	@Override
 	public List<UserEntity> getAll() {
-		load();
-		return users;
+		return users.getUsers();
 	}
 
 	@Override
-	public UserEntity find(int id) {
+	public UserEntity find(UUID id) {
 		int index = findIndex(id);
-		if (index == -1)
-		{
+		if (index == -1) {
 			return null;
-		}
-		else {
-			return users.get(index);
+		} else {
+			return users.getUsers().get(index);
 		}
 	}
 
 	@Override
-	public int findIndex(int id) {
-		for(int i = 0;i<users.size();i++)
-		{
-			if (users.get(i).getId()==id)
+	public int findIndex(UUID id) {
+		for (int i = 0; i < users.getUsers().size(); i++) {
+			if (users.getUsers().get(i).getId() == id)
 				return i;
 		}
 		return -1;
+	}
+
+	@Override
+	public UserEntity findByEmail(String email) {
+		for (UserEntity userEntity : users.getUsers()) {
+			if (userEntity.getEmail().toLowerCase().equals(email.toLowerCase()))
+				return userEntity;
+		}
+		return null;
 	}
 
 }

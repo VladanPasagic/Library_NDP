@@ -1,40 +1,49 @@
 package org.unibl.etf.mdp.library.entities;
 
+import java.util.UUID;
+
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name = "User")
+@XmlType(propOrder = { "id", "firstName", "lastName", "address", "email", "username", "password", "active",
+		"rejected" })
 public class UserEntity {
-	private int id;
-	private String name;
-	private String surname;
+	private UUID id;
+	private String firstName;
+	private String lastName;
 	private String address;
 	private String email;
 	private String username;
 	private String password;
 	private boolean active;
-	
+	private boolean rejected;
 
-	public int getId() {
+	@XmlElement
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	@XmlElement
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public String getName() {
-		return name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	@XmlElement
+	public String getLastName() {
+		return lastName;
 	}
 
-	public String getSurname() {
-		return surname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
+	@XmlElement
 	public String getAddress() {
 		return address;
 	}
@@ -43,6 +52,7 @@ public class UserEntity {
 		this.address = address;
 	}
 
+	@XmlElement
 	public String getEmail() {
 		return email;
 	}
@@ -51,6 +61,7 @@ public class UserEntity {
 		this.email = email;
 	}
 
+	@XmlElement
 	public String getUsername() {
 		return username;
 	}
@@ -59,6 +70,7 @@ public class UserEntity {
 		this.username = username;
 	}
 
+	@XmlElement
 	public String getPassword() {
 		return password;
 	}
@@ -67,6 +79,7 @@ public class UserEntity {
 		this.password = password;
 	}
 
+	@XmlElement
 	public boolean isActive() {
 		return active;
 	}
@@ -75,6 +88,31 @@ public class UserEntity {
 		this.active = active;
 	}
 
-	
-	
+	@XmlElement
+	public boolean isRejected() {
+		return rejected;
+	}
+
+	public void setRejected(boolean rejected) {
+		this.rejected = rejected;
+	}
+
+	public UserEntity() {
+		super();
+	}
+
+	public UserEntity(String firstName, String lastName, String address, String email, String username,
+			String password) {
+		super();
+		this.id = UUID.randomUUID();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.active = false;
+		this.rejected = false;
+	}
+
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/UserSchema"
+	xmlns:tns="http://www.example.org/UserSchema"
+	elementFormDefault="qualified">
+	<element name="Users">
+		<complexType>
+			<sequence>
+				<element name="User" maxOccurs="unbounded">
+					<complexType>
+						<sequence>
+							<element name="id" type="string" />
+							<element name="firstName" type="string" />
+							<element name="lastname" type="string" />
+							<element name="address" type="string" />
+							<element name="email" type="string" />
+							<element name="username" type="string" />
+							<element name="password" type="string" />
+							<element name="active" type="boolean" />
+							<element name="rejected" type="boolean" />
+						</sequence>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

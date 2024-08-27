@@ -1,22 +1,23 @@
 package org.unibl.etf.mdp.library.repositories.interfaces;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface IGenericRepository<T> {
 
 	List<T> getAll();
 
-	T get(int id);
+	T get(UUID id);
 
 	void add(T item);
 
-	void remove(int id);
+	void remove(UUID id);
 
 	void save();
 
 	void load();
 
-	T find(int id);
+	T find(UUID id);
 
-	int findIndex(int id);
+	int findIndex(UUID id);
 }

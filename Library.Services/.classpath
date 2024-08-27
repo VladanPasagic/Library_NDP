@@ -14,5 +14,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/Library.Services/lib/jakarta.ws.rs-api-4.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/Library.Services/lib/jakarta.xml.bind-api-4.0.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
