@@ -11,6 +11,7 @@ import org.unibl.etf.mdp.library.services.PropertyLoaderService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
 import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
 
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.Path;
@@ -71,13 +72,21 @@ public class UsersController {
 	}
 
 	@PATCH
-	@PathParam("{id}/block")
+	@Path("{id}/block")
 	public Response blockUser(@PathParam("id") String id) {
 		UserEntity userEntity = userService.find(UUID.fromString(id));
 		if (userEntity == null) {
 			return Response.status(409).build();
 		}
 		userEntity.setActive(false);
+		userService.save();
+		return Response.ok().build();
+	}
+
+	@DELETE
+	@Path("{id}")
+	public Response deleteUser(@PathParam("id") String id) {
+		userService.remove(UUID.fromString(id));
 		userService.save();
 		return Response.ok().build();
 	}

@@ -45,7 +45,7 @@ public class LoginController {
 		boolean status = HttpUtils.post(null, loginRequest, LoginRequest.class);
 		if (status) {
 			try {
-				URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/RegisterScene.fxml").toUri().toURL();
+				URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/BooksScene.fxml").toUri().toURL();
 				sceneSwitcherService.switchScene(url, event);
 			} catch (IOException ex) {
 				logger.logError("Couldn't load file", ex);

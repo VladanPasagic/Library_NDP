@@ -1,5 +1,7 @@
 package org.unibl.etf.mdp.library.entities;
 
+import java.io.File;
+import java.util.Date;
 import java.util.UUID;
 
 public class BookEntity {
@@ -7,6 +9,10 @@ public class BookEntity {
 	private String ISBN;
 	private String name;
 	private String author;
+	private String frontPageLink;
+	private String releaseDate;
+	private String language;
+	private File content;
 
 	public UUID getId() {
 		return id;
@@ -34,6 +40,42 @@ public class BookEntity {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	public String getFrontPageLink() {
+		return frontPageLink;
+	}
+
+	public void setFrontPageLink(String frontPageLink) {
+		this.frontPageLink = frontPageLink;
+	}
+
+	public String getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(String releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public File getContent() {
+		return content;
+	}
+
+	public void setContent(File content) {
+		this.content = content;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 }
