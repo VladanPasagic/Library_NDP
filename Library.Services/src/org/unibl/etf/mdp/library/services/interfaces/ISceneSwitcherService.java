@@ -6,5 +6,5 @@ import java.net.URL;
 import javafx.event.ActionEvent;
 
 public interface ISceneSwitcherService {
-	void switchScene(URL url, ActionEvent event) throws IOException;
+	void switchScene(URL url, ActionEvent event, boolean isMenuItem) throws IOException;
 }

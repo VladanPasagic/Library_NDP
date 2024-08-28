@@ -5,4 +5,5 @@ module Library.WorkerApplication {
 	requires LibraryEntities;
 
 	opens org.unibl.etf.mdp.library.main to javafx.graphics, javafx.fxml;
+	opens org.unibl.etf.mdp.library.controllers to javafx.fxml;
 }

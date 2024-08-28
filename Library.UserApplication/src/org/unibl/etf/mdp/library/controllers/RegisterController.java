@@ -70,7 +70,7 @@ public class RegisterController {
 	private void handleSwitchToLogin(ActionEvent event) {
 		try {
 			URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/LoginScene.fxml").toUri().toURL();
-			sceneSwitcherService.switchScene(url, event);
+			sceneSwitcherService.switchScene(url, event, false);
 		} catch (IOException ex) {
 			logger.logError("Couldn't load file", ex);
 		}

@@ -46,9 +46,9 @@ public class LoginController {
 		if (status) {
 			try {
 				URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/BooksScene.fxml").toUri().toURL();
-				sceneSwitcherService.switchScene(url, event);
+				sceneSwitcherService.switchScene(url, event, false);
 			} catch (IOException ex) {
-				logger.logError("Couldn't load file", ex);
+				logger.logError("Couldn't load scene", ex);
 			}
 		} else {
 			AlertUtils.setAlert(AlertType.INFORMATION, "invalid login information", "Invalid login credentials",
@@ -60,9 +60,9 @@ public class LoginController {
 	private void handleSwitchToRegister(ActionEvent event) {
 		try {
 			URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/RegisterScene.fxml").toUri().toURL();
-			sceneSwitcherService.switchScene(url, event);
+			sceneSwitcherService.switchScene(url, event, false);
 		} catch (IOException ex) {
-			logger.logError("Couldn't load file", ex);
+			logger.logError("Couldn't load scene", ex);
 		}
 	}
 }

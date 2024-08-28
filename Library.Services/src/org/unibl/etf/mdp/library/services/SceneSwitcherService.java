@@ -10,33 +10,37 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
-public class SceneSwitcherService implements ISceneSwitcherService{
-private static SceneSwitcherService instance = null;
-	
+public class SceneSwitcherService implements ISceneSwitcherService {
+	private static SceneSwitcherService instance = null;
+
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
-	
-	private SceneSwitcherService()
-	{
-		
+
+	private SceneSwitcherService() {
+
 	}
-	
-	public static SceneSwitcherService getSwitcherService()
-	{
+
+	public static SceneSwitcherService getSwitcherService() {
 		if (instance == null)
 			instance = new SceneSwitcherService();
 		return instance;
 	}
-	
-	public void switchScene(URL url, ActionEvent event) throws IOException
-	{
+
+	public void switchScene(URL url, ActionEvent event, boolean isMenuItem) throws IOException {
 		root = FXMLLoader.load(url);
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		if (isMenuItem) {
+			stage = (Stage) (((MenuItem) event.getSource()).getParentPopup().getOwnerWindow());
+		} else {
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		}
+
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+
 	}
 }
