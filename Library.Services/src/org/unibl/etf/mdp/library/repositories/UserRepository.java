@@ -8,6 +8,7 @@ import org.unibl.etf.mdp.library.entities.UsersEntity;
 import org.unibl.etf.mdp.library.helpers.XMLUtils;
 import org.unibl.etf.mdp.library.repositories.interfaces.IUserRepository;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
+import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
 
 public class UserRepository implements IUserRepository {
 
@@ -16,14 +17,15 @@ public class UserRepository implements IUserRepository {
 	private UsersEntity users = new UsersEntity();
 	private XMLUtils xmlUtils;
 
-	private UserRepository(ILoggerService loggerService) {
-		xmlUtils = new XMLUtils(loggerService);
+	private UserRepository(ILoggerService loggerService, IPropertyLoaderService propertyLoaderService) {
+		xmlUtils = new XMLUtils(loggerService, propertyLoaderService);
 		load();
 	}
 
-	public static IUserRepository getRepository(ILoggerService loggerService) {
+	public static IUserRepository getRepository(ILoggerService loggerService,
+			IPropertyLoaderService propertyLoaderService) {
 		if (instance == null)
-			instance = new UserRepository(loggerService);
+			instance = new UserRepository(loggerService, propertyLoaderService);
 		return instance;
 	}
 
@@ -78,7 +80,7 @@ public class UserRepository implements IUserRepository {
 	@Override
 	public int findIndex(UUID id) {
 		for (int i = 0; i < users.getUsers().size(); i++) {
-			if (users.getUsers().get(i).getId() == id)
+			if (users.getUsers().get(i).getId().equals(id.toString()))
 				return i;
 		}
 		return -1;

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Users>
+    <User>
+        <id>6bdebe51-4e33-44bf-8581-1aa8989638d8</id>
+        <firstName>Vladan</firstName>
+        <lastName>Pasagic</lastName>
+        <address>BL</address>
+        <email>pasagicvladan01@gmail.com</email>
+        <username>pasha</username>
+        <password>pasha</password>
+        <active>true</active>
+        <handled>true</handled>
+        <approved>true</approved>
+    </User>
+    <User>
+        <id>92dd6baf-b0a6-46fe-b1ea-8eefb55d4a5c</id>
+        <firstName>Vladan</firstName>
+        <lastName>Pasagic</lastName>
+        <address>BL</address>
+        <email>pasagicvladan@gmail.com</email>
+        <username>pasha</username>
+        <password>pasha</password>
+        <active>false</active>
+        <handled>false</handled>
+        <approved>false</approved>
+    </User>
+    <User>
+        <id>127fd759-22ce-4ba7-b505-c6048629122a</id>
+        <firstName>Vladan</firstName>
+        <lastName>Pasagic</lastName>
+        <address>BL</address>
+        <email>vladanpasagic@gmail.com</email>
+        <username>pasha</username>
+        <password>pasha</password>
+        <active>false</active>
+        <handled>false</handled>
+        <approved>false</approved>
+    </User>
+</Users>

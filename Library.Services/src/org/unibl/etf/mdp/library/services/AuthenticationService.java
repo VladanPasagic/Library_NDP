@@ -7,19 +7,21 @@ import org.unibl.etf.mdp.library.requests.LoginRequest;
 import org.unibl.etf.mdp.library.requests.RegistrationRequest;
 import org.unibl.etf.mdp.library.services.interfaces.IAuthenticationService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
+import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
 
 public class AuthenticationService implements IAuthenticationService {
 
 	private static IAuthenticationService instance = null;
 	private IUserRepository userRepository;
 
-	private AuthenticationService(ILoggerService loggerService) {
-		userRepository = UserRepository.getRepository(loggerService);
+	private AuthenticationService(ILoggerService loggerService, IPropertyLoaderService propertyLoaderService) {
+		userRepository = UserRepository.getRepository(loggerService, propertyLoaderService);
 	}
 
-	public static IAuthenticationService getInstance(ILoggerService loggerService) {
+	public static IAuthenticationService getInstance(ILoggerService loggerService,
+			IPropertyLoaderService propertyLoaderService) {
 		if (instance == null)
-			instance = new AuthenticationService(loggerService);
+			instance = new AuthenticationService(loggerService, propertyLoaderService);
 		return instance;
 	}
 

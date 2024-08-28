@@ -17,6 +17,31 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/Library.UserApplication/jars/jakarta.ws.rs-api-4.0.0.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/Library.UserApplication/jars/jersey-client-3.1.8.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/Library.UserApplication/jars/jakarta.inject-api-2.0.1.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/Library.UserApplication/jars/jersey-common-3.1.8.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/Library.UserApplication/jars/jakarta.annotation-api-3.0.0.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/LibraryServices.jar" sourcepath="/Library.Services">
 		<attributes>
 			<attribute name="module" value="true"/>

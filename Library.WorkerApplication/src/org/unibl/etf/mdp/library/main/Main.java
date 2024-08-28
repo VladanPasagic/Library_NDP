@@ -20,16 +20,14 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		try {
-			URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/LoginScene.fxml").toUri().toURL();
+			URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/UsersScene.fxml").toUri().toURL();
 			Parent root = FXMLLoader.load(url);
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
 		} catch (IOException ex) {
-			System.out.println(ex);
-			ex.printStackTrace();
+			loggerService.logCritical("Couldn't load scene", ex);
 		}
-
 	}
 
 	public static void main(String[] args) {

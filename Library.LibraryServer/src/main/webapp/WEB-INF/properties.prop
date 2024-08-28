@@ -1,2 +1,2 @@
 REDIS_SERVER:localhost:6379
-USERS_XML_PATH:users.xml
+USERS_XML_PATH:C:\\Users\\pasag\\OneDrive\\Desktop\\MDP\\users.xml

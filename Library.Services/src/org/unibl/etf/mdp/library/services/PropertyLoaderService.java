@@ -8,23 +8,27 @@ import java.util.Properties;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
 import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
 
-public class PropertyLoaderService implements IPropertyLoaderService{
-	
+public class PropertyLoaderService implements IPropertyLoaderService {
+
 	private static IPropertyLoaderService instance;
 	private Properties properties;
-	
-	private PropertyLoaderService(Properties properties)
-	{
+
+	private PropertyLoaderService(Properties properties) {
 		this.properties = properties;
 	}
-	
-	public static IPropertyLoaderService load(ILoggerService loggerService) {
+
+	public static IPropertyLoaderService load(ILoggerService loggerService, boolean isWebApp, ClassLoader loader) {
 		if (instance != null)
 			return instance;
-		
+
 		Properties properties = new Properties();
 		try {
-			InputStream input = new FileInputStream("properties.prop");
+			InputStream input;
+			if (isWebApp) {
+				input = new FileInputStream(loader.getResource("../properties.prop").getPath().substring(1));
+			} else {
+				input = new FileInputStream("properties.prop");
+			}
 			properties.load(input);
 			input.close();
 		} catch (IOException ex) {
@@ -38,5 +42,5 @@ public class PropertyLoaderService implements IPropertyLoaderService{
 	public String getProperty(String key) {
 		return properties.getProperty(key);
 	}
-	
+
 }

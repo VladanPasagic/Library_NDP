@@ -10,9 +10,9 @@ import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
 import org.unibl.etf.mdp.library.services.interfaces.IRedisService;
 
 public class RedisService implements IRedisService {
-	private final ILoggerService loggerService = LoggerService.getLogger(this.getClass().getName(), true,
+	private final ILoggerService loggerService = LoggerService.getLogger(this.getClass().getName());
+	private final IPropertyLoaderService propertyLoaderService = PropertyLoaderService.load(loggerService, true,
 			this.getClass().getClassLoader());
-	private final IPropertyLoaderService propertyLoaderService = PropertyLoaderService.load(loggerService);
 	private final String CONNECTION_STRING = propertyLoaderService.getProperty("REDIS_SERVER");
 	private static IRedisService instance = null;
 	private List<BookEntity> books = new ArrayList<BookEntity>();

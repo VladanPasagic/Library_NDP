@@ -7,8 +7,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "User")
-@XmlType(propOrder = { "id", "firstName", "lastName", "address", "email", "username", "password", "active",
-		"rejected" })
+@XmlType(propOrder = { "id", "firstName", "lastName", "address", "email", "username", "password", "active", "handled",
+		"approved" })
 public class UserEntity {
 	private UUID id;
 	private String firstName;
@@ -18,11 +18,16 @@ public class UserEntity {
 	private String username;
 	private String password;
 	private boolean active;
-	private boolean rejected;
+	private boolean handled;
+	private boolean approved;
 
 	@XmlElement
-	public UUID getId() {
-		return id;
+	public String getId() {
+		return id.toString();
+	}
+
+	public void setId(String id) {
+		this.id = UUID.fromString(id);
 	}
 
 	@XmlElement
@@ -89,12 +94,21 @@ public class UserEntity {
 	}
 
 	@XmlElement
-	public boolean isRejected() {
-		return rejected;
+	public boolean isHandled() {
+		return handled;
 	}
 
-	public void setRejected(boolean rejected) {
-		this.rejected = rejected;
+	public void setHandled(boolean handled) {
+		this.handled = handled;
+	}
+
+	@XmlElement
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
 	}
 
 	public UserEntity() {
@@ -112,7 +126,8 @@ public class UserEntity {
 		this.username = username;
 		this.password = password;
 		this.active = false;
-		this.rejected = false;
+		this.handled = false;
+		this.approved = false;
 	}
 
 }

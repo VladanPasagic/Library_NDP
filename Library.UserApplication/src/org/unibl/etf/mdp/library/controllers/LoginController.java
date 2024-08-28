@@ -24,8 +24,8 @@ import javafx.scene.control.Alert.AlertType;
 public class LoginController {
 
 	private ISceneSwitcherService sceneSwitcherService = SceneSwitcherService.getSwitcherService();
-	private ILoggerService logger = LoggerService.getLogger(this.getClass().getName());
-	private IPropertyLoaderService propertyLoaderService = PropertyLoaderService.load(logger);
+	private ILoggerService logger = LoggerService.getLogger(getClass().getName());
+	private IPropertyLoaderService propertyLoaderService = PropertyLoaderService.load(logger, false, null);
 	private String baseUrl = propertyLoaderService.getProperty("BASE_URL");
 
 	@FXML

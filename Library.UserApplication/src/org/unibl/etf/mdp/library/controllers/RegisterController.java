@@ -22,7 +22,7 @@ import javafx.scene.control.Alert.AlertType;
 public class RegisterController {
 
 	private ISceneSwitcherService sceneSwitcherService = SceneSwitcherService.getSwitcherService();
-	private ILoggerService logger = LoggerService.getLogger(this.getClass().getName());
+	private ILoggerService logger = LoggerService.getLogger(getClass().getName());
 
 	@FXML
 	private TextField firstName;
@@ -63,8 +63,7 @@ public class RegisterController {
 		RegistrationRequest request = new RegistrationRequest(firstName.getText(), lastName.getText(),
 				address.getText(), email.getText(), username.getText(), password.getText());
 		boolean success = HttpUtils.post("", request, RegistrationRequest.class);
-		
-		
+
 	}
 
 	@FXML

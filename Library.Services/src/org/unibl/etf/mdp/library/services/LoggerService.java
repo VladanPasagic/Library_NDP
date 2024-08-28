@@ -1,5 +1,6 @@
 package org.unibl.etf.mdp.library.services;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
@@ -16,17 +17,13 @@ public class LoggerService implements ILoggerService {
 	private static ILoggerService instance = null;
 	private Logger logger;
 
-	private <T> LoggerService(String className, boolean isWebProject, ClassLoader loader) {
+	private LoggerService(String className) {
 		try {
 			logger = Logger.getLogger(className);
 			FileHandler fileHandler = null;
-			if (isWebProject) {
-				System.out.println(loader.getName());
-				String logFilePath = loader.getResource("../application.log").getPath();
-				fileHandler = new FileHandler(logFilePath.substring(1), true);
-			} else {
-				fileHandler = new FileHandler("application.log", true);
-			}
+			System.out.println(System.getProperty("user.home"));
+			File file = new File(System.getProperty("user.home") + File.separatorChar + "application.log");
+			fileHandler = new FileHandler(file.getPath(), true);
 			fileHandler.setLevel(Level.INFO);
 			fileHandler.setFormatter(new SimpleFormatter());
 			logger.addHandler(fileHandler);
@@ -36,9 +33,9 @@ public class LoggerService implements ILoggerService {
 		}
 	}
 
-	public static <T> ILoggerService getLogger(String classname, boolean isWebProject, ClassLoader loader) {
+	public static ILoggerService getLogger(String classname) {
 		if (instance == null) {
-			instance = new LoggerService(classname, isWebProject, loader);
+			instance = new LoggerService(classname);
 		}
 		return instance;
 	}

@@ -17,7 +17,8 @@
 							<element name="username" type="string" />
 							<element name="password" type="string" />
 							<element name="active" type="boolean" />
-							<element name="rejected" type="boolean" />
+							<element name="handled" type="boolean" />
+							<element name="approved" type="boolean" />
 						</sequence>
 					</complexType>
 				</element>
