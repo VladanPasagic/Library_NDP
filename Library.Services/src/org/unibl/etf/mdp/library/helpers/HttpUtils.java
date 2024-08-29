@@ -42,4 +42,27 @@ public class HttpUtils {
 		cl.close();
 	}
 
+	public static boolean put(String url) {
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target(url);
+		Response response = target.request(MediaType.APPLICATION_JSON)
+				.put(Entity.entity("1", MediaType.APPLICATION_JSON));
+		if (response.getStatus() == 200) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static boolean delete(String url) {
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target(url);
+		Response response = target.request(MediaType.APPLICATION_JSON).delete();
+		if (response.getStatus() == 200) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

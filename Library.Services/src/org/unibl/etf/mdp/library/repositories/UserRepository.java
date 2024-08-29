@@ -95,4 +95,13 @@ public class UserRepository implements IUserRepository {
 		return null;
 	}
 
+	@Override
+	public UserEntity findByUsername(String username) {
+		for (UserEntity userEntity : users.getUsers()) {
+			if (userEntity.getUsername().toLowerCase().equals(username.toLowerCase()))
+				return userEntity;
+		}
+		return null;
+	}
+
 }

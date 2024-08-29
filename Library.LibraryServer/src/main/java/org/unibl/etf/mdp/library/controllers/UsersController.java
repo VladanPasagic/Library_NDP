@@ -14,6 +14,7 @@ import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PATCH;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -45,12 +46,12 @@ public class UsersController {
 		return userService.getAll().stream().filter(entity -> entity.isHandled() == false).toList();
 	}
 
-	@PATCH
+	@PUT
 	@Path("requests/{id}/approve")
 	public Response approveRequest(@PathParam("id") String id) {
 		UserEntity userEntity = userService.find(UUID.fromString(id));
 		if (userEntity == null) {
-			return Response.status(409).build();
+			return Response.status(400).build();
 		}
 		userEntity.setActive(true);
 		userEntity.setHandled(true);
@@ -59,19 +60,19 @@ public class UsersController {
 		return Response.ok().build();
 	}
 
-	@PATCH
+	@PUT
 	@Path("requests/{id}/reject")
 	public Response rejectRequest(@PathParam("id") String id) {
 		UserEntity userEntity = userService.find(UUID.fromString(id));
 		if (userEntity == null) {
-			return Response.status(409).build();
+			return Response.status(400).build();
 		}
 		userEntity.setHandled(true);
 		userService.save();
 		return Response.ok().build();
 	}
 
-	@PATCH
+	@PUT
 	@Path("{id}/block")
 	public Response blockUser(@PathParam("id") String id) {
 		UserEntity userEntity = userService.find(UUID.fromString(id));

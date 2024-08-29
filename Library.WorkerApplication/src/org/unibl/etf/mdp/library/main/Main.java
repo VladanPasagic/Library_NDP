@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 
+import org.unibl.etf.mdp.library.interfaces.IInitializable;
 import org.unibl.etf.mdp.library.services.LoggerService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
 
@@ -21,10 +22,15 @@ public class Main extends Application {
 	public void start(Stage stage) throws Exception {
 		try {
 			URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/UsersScene.fxml").toUri().toURL();
-			Parent root = FXMLLoader.load(url);
+			FXMLLoader loader = new FXMLLoader(url);
+			Parent root = loader.load();
+			var controller = loader.getController();
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
+			if (controller instanceof IInitializable) {
+				((IInitializable) controller).init();
+			}
 		} catch (IOException ex) {
 			loggerService.logCritical("Couldn't load scene", ex);
 		}

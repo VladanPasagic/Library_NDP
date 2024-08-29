@@ -1,2 +1,3 @@
 MULTICAST_SERVER:224.0.0.11
 MULTICAST_PORT:20000
+LIBRARY_SERVER:http://localhost:8080/Library.LibraryServer/api/

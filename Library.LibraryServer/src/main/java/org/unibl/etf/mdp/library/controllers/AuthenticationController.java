@@ -42,7 +42,12 @@ public class AuthenticationController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response login(LoginRequest request) {
 		boolean result = authenticationService.login(request);
-		return Response.status(200).build();
+		if (result) {
+			return Response.status(200).build();
+		} else {
+			return Response.status(401).build();
+		}
+
 	}
 
 	@POST
@@ -52,7 +57,11 @@ public class AuthenticationController {
 	public Response register(RegistrationRequest request) {
 		System.out.println(request.getEmail());
 		boolean result = authenticationService.register(request);
-		return Response.status(200).build();
+		if (result) {
+			return Response.status(200).build();
+		} else {
+			return Response.status(409).build();
+		}
 	}
 
 	@GET
