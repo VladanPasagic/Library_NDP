@@ -18,5 +18,6 @@
 	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/Library.Services/lib/java-http-client-4.5.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/Library.Services/lib/jedis-5.1.5.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/Library.Services/lib/sendgrid-java-4.10.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/Library.Services/lib/gson-2.11.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

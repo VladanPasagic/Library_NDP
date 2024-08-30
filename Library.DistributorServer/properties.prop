@@ -1,3 +1,4 @@
 TCP_PORT:9000
 MULTICAST_SERVER:224.0.0.11
 MULTICAST_PORT:20000
+BOOK_LIST:C:\\Users\\pasag\\OneDrive\\Desktop\\MDP\\lista.txt

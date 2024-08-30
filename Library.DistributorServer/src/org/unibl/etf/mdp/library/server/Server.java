@@ -19,7 +19,7 @@ public class Server {
 			ServerSocket ss = new ServerSocket(Integer.parseInt(propertyLoaderService.getProperty(TCP_PORT_PROPERTY)));
 			while (true) {
 				Socket socket = ss.accept();
-				new ServerThread(socket, loggerService).start();
+				new ServerThread(socket, loggerService, propertyLoaderService).start();
 			}
 		} catch (Exception ex) {
 			loggerService.logError("Error occurred", ex);

@@ -34,8 +34,8 @@ public class UserRepository implements IUserRepository {
 		int index = findIndex(id);
 		if (index != -1) {
 			users.getUsers().remove(index);
+			save();
 		}
-		save();
 	}
 
 	@Override

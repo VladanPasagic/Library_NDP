@@ -36,15 +36,21 @@ public class GutenbergService implements IGutenbergService {
 		try {
 			URL book = new URI(url).toURL();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(book.openStream()));
-			String workingDirectory = System.getProperty("user.dir");
-			File file = new File(workingDirectory + File.separatorChar + "Books" + File.separatorChar
-					+ urlParts[urlParts.length - 1]);
-			file.mkdirs();
-			PrintWriter pw = new PrintWriter(file);
-			String line = "";
-			while ((line = reader.readLine()) != null) {
-				lineChecker(entity, line);
-				pw.println(line);
+			String workingDirectory = System.getProperty("user.home");
+			File dir = new File(workingDirectory + File.separatorChar + "Books");
+			if (dir.exists() == false)
+				dir.mkdirs();
+			File file = new File(dir.getPath() + File.separatorChar + urlParts[urlParts.length - 1]);
+			if (file.exists() == false)
+			{
+				file.createNewFile();
+				PrintWriter pw = new PrintWriter(file);
+				String line = "";
+				while ((line = reader.readLine()) != null) {
+					lineChecker(entity, line);
+					pw.println(line);
+				}
+				pw.close();
 			}
 			entity.setContent(file.getPath());
 		} catch (MalformedURLException ex) {

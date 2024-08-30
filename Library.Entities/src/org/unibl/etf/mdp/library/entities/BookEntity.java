@@ -20,8 +20,8 @@ public class BookEntity {
 		return ISBN;
 	}
 
-	public void setISBN(String iSBN) {
-		ISBN = iSBN;
+	public void setISBN(String ISBN) {
+		this.ISBN = ISBN;
 	}
 
 	public String getName() {
@@ -74,6 +74,23 @@ public class BookEntity {
 
 	public void setId(UUID id) {
 		this.id = id;
+	}
+
+	public BookEntity() {
+		super();
+	}
+
+	public BookEntity(String ISBN, String name, String author, String frontPageLink, String releaseDate,
+			String language, String contentPath) {
+		super();
+		this.id = UUID.randomUUID();
+		this.ISBN = ISBN;
+		this.name = name;
+		this.author = author;
+		this.frontPageLink = frontPageLink;
+		this.releaseDate = releaseDate;
+		this.language = language;
+		this.contentPath = contentPath;
 	}
 
 }

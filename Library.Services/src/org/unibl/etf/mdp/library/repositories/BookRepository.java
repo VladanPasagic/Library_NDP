@@ -5,55 +5,81 @@ import java.util.UUID;
 
 import org.unibl.etf.mdp.library.entities.BookEntity;
 import org.unibl.etf.mdp.library.repositories.interfaces.IBookRepository;
+import org.unibl.etf.mdp.library.services.RedisService;
+import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
+import org.unibl.etf.mdp.library.services.interfaces.IRedisService;
 
 public class BookRepository implements IBookRepository {
 
+	private static IBookRepository instance = null;
+	private IRedisService redisService;
+	private List<BookEntity> books;
+
+	private BookRepository(IPropertyLoaderService propertyLoaderService) {
+		this.redisService = RedisService.getRedisService(propertyLoaderService);
+		load();
+	}
+
+	public static IBookRepository getRepository(IPropertyLoaderService propertyLoaderService) {
+		if (instance == null)
+			instance = new BookRepository(propertyLoaderService);
+		return instance;
+	}
+
 	@Override
 	public List<BookEntity> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return books;
 	}
 
 	@Override
 	public BookEntity get(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		BookEntity book = find(id);
+		return book;
 	}
 
 	@Override
 	public void add(BookEntity item) {
-		// TODO Auto-generated method stub
-
+		books.add(item);
+		save();
 	}
 
 	@Override
 	public void remove(UUID id) {
-		// TODO Auto-generated method stub
-
+		int index = findIndex(id);
+		if (index != -1) {
+			books.remove(index);
+			save();
+		}
 	}
 
 	@Override
 	public void save() {
-		// TODO Auto-generated method stub
-
+		redisService.saveBooks();
 	}
 
 	@Override
 	public void load() {
-		// TODO Auto-generated method stub
-
+		redisService.loadBooks();
+		books = redisService.getBooks();
 	}
 
 	@Override
 	public BookEntity find(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		int index = findIndex(id);
+		if (index == -1) {
+			return null;
+		} else {
+			return books.get(index);
+		}
 	}
 
 	@Override
 	public int findIndex(UUID id) {
-		// TODO Auto-generated method stub
-		return 0;
+		for (int i = 0; i < books.size(); i++) {
+			if (books.get(i).getId().equals(id))
+				return i;
+		}
+		return -1;
 	}
 
 }
