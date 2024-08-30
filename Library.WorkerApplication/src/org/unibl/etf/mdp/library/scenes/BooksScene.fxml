@@ -20,7 +20,7 @@
 	<children>
 		<MenuBar layoutY="2.0">
 			<menus>
-				<Menu mnemonicParsing=" false " text="View">
+				<Menu mnemonicParsing="false" text="View">
 					<items>
 						<MenuItem mnemonicParsing="false"
 							onAction="#switchToUsers" text="Users" />
@@ -40,5 +40,35 @@
 				</Menu>
 			</menus>
 		</MenuBar>
+		<TableView fx:id="tableView" layoutX="36.0" layoutY="119.0"
+			prefHeight="209.0" prefWidth="528.0">
+			<columns>
+				<TableColumn text="ISBN">
+					<cellValueFactory>
+						<PropertyValueFactory property="ISBN" />
+					</cellValueFactory>
+				</TableColumn>
+				<TableColumn text="Title">
+					<cellValueFactory>
+						<PropertyValueFactory property="name" />
+					</cellValueFactory>
+				</TableColumn>
+				<TableColumn text="Author">
+					<cellValueFactory>
+						<PropertyValueFactory property="author" />
+					</cellValueFactory>
+				</TableColumn>
+				<TableColumn text="Release date">
+					<cellValueFactory>
+						<PropertyValueFactory property="releaseDate" />
+					</cellValueFactory>
+				</TableColumn>
+				<TableColumn text="Language">
+					<cellValueFactory>
+						<PropertyValueFactory property="language" />
+					</cellValueFactory>
+				</TableColumn>
+			</columns>
+		</TableView>
 	</children>
 </AnchorPane>

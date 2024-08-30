@@ -6,4 +6,40 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
 	prefWidth="600.0" xmlns="http://javafx.com/javafx/22"
-	xmlns:fx="http://javafx.com/fxml/1" />
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="org.unibl.etf.mdp.library.controllers.BooksController">
+	<children>
+		<TableView fx:id="tableView" layoutX="36.0"
+			layoutY="119.0" prefHeight="209.0" prefWidth="528.0">
+			<columns>
+				<TableColumn text="ISBN">
+					<cellValueFactory>
+						<PropertyValueFactory property="ISBN" />
+					</cellValueFactory>
+				</TableColumn>
+				<TableColumn text="Title">
+					<cellValueFactory>
+						<PropertyValueFactory property="name" />
+					</cellValueFactory>
+				</TableColumn>
+				<TableColumn text="Author">
+					<cellValueFactory>
+						<PropertyValueFactory property="author" />
+					</cellValueFactory>
+				</TableColumn>
+				<TableColumn text="Release date">
+					<cellValueFactory>
+						<PropertyValueFactory property="releaseDate" />
+					</cellValueFactory>
+				</TableColumn>
+				<TableColumn text="Language">
+					<cellValueFactory>
+						<PropertyValueFactory property="language" />
+					</cellValueFactory>
+				</TableColumn>
+				<TableColumn fx:id="detailsColumn" text="Details">
+				</TableColumn>
+			</columns>
+		</TableView>
+	</children>
+</AnchorPane>
