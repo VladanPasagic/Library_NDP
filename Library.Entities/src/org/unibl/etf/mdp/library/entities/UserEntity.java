@@ -1,5 +1,6 @@
 package org.unibl.etf.mdp.library.entities;
 
+import java.util.Random;
 import java.util.UUID;
 
 import jakarta.xml.bind.annotation.XmlElement;
@@ -20,6 +21,7 @@ public class UserEntity {
 	private boolean active;
 	private boolean handled;
 	private boolean approved;
+	private int port;
 
 	@XmlElement
 	public String getId() {
@@ -111,6 +113,15 @@ public class UserEntity {
 		this.approved = approved;
 	}
 
+	@XmlElement
+	public int getPort() {
+		return port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
 	public UserEntity() {
 		super();
 	}
@@ -128,6 +139,7 @@ public class UserEntity {
 		this.active = false;
 		this.handled = false;
 		this.approved = false;
+		this.port = new Random(System.currentTimeMillis()).nextInt(49151 - 1024) + 1024;
 	}
 
 }

@@ -42,7 +42,7 @@ public class LoginController {
 			return;
 		}
 		LoginRequest loginRequest = new LoginRequest(username.getText(), password.getText());
-		boolean status = HttpUtils.post(null, loginRequest, LoginRequest.class);
+		boolean status = HttpUtils.post(propertyLoaderService.getProperty("BASE_URL") + "auth/login", loginRequest, LoginRequest.class);
 		if (status) {
 			try {
 				URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/BooksScene.fxml").toUri().toURL();

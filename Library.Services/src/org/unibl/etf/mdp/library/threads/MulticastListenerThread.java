@@ -33,9 +33,13 @@ public class MulticastListenerThread extends Thread {
 		try {
 			socket = new MulticastSocket(port);
 			InetAddress address = InetAddress.getByName(this.address);
-			SocketAddress socketAddress = new InetSocketAddress(address, port);
-			NetworkInterface netIf = NetworkInterface.getNetworkInterfaces().nextElement();
-			socket.joinGroup(socketAddress, netIf);
+			/*
+			 * SocketAddress socketAddress = new InetSocketAddress(address, port);
+			 * NetworkInterface netIf =
+			 * NetworkInterface.getNetworkInterfaces().nextElement();
+			 * socket.joinGroup(socketAddress, netIf);
+			 */
+			socket.joinGroup(address);
 			while (true) {
 				DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 				socket.receive(packet);

@@ -1,5 +1,7 @@
 package org.unibl.etf.mdp.library.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,7 +46,18 @@ public class BookController {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getBook(@PathParam("id") String id) {
-		return Response.status(200).entity(bookRepository.get(UUID.fromString(id))).build();
+		BookEntity entity = bookRepository.get(UUID.fromString(id));
+		try {
+			List<String> lines = Files.readAllLines(java.nio.file.Path.of(entity.getContentPath()));
+			StringBuilder builder = new StringBuilder();
+			for (int i = 0; i < 100 && i < lines.size(); i++) {
+				builder.append(lines.get(i) + "\n");
+			}
+			entity.setContent(builder.toString());
+		} catch (IOException e) {
+			loggerService.logError("Error occurred while reading book", e);
+		}
+		return Response.status(200).entity(entity).build();
 	}
 
 	@POST

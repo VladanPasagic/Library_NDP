@@ -1,34 +1,43 @@
 package org.unibl.etf.mdp.library.controllers;
 
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.util.UUID;
 
+import org.unibl.etf.mdp.library.entities.BookEntity;
+import org.unibl.etf.mdp.library.helpers.HttpUtils;
 import org.unibl.etf.mdp.library.services.LoggerService;
+import org.unibl.etf.mdp.library.services.PropertyLoaderService;
 import org.unibl.etf.mdp.library.services.SceneSwitcherService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
+import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
 import org.unibl.etf.mdp.library.services.interfaces.ISceneSwitcherService;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class BookDetailsController {
 
 	private ILoggerService loggerService = LoggerService.getLogger(getClass().getName());
 	private ISceneSwitcherService sceneSwitcherService = SceneSwitcherService.getSwitcherService();
-
-	public void getBook(UUID id) {
-
-	}
+	private IPropertyLoaderService propertyLoaderService = PropertyLoaderService.load(loggerService, false, null);
 
 	@FXML
-	private void returnToPreviousScene(ActionEvent event) {
-		try {
-			URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/BooksScene.fxml").toUri().toURL();
-			sceneSwitcherService.switchScene(url, event, false);
-		} catch (IOException ex) {
-			loggerService.logError("Couldn't load scene", ex);
-		}
+	private ImageView imageView;
+
+	@FXML
+	private TextArea textArea;
+
+	@FXML
+	private Label label;
+
+	public void getBook(UUID id) {
+		BookEntity entity = HttpUtils.get(propertyLoaderService.getProperty("BASE_URL") + "books/" + id,
+				BookEntity.class);
+		imageView.setImage(new Image(entity.getFrontPageLink()));
+		textArea.setText(entity.getContentPath());
+		label.setText(entity.getName());
 	}
+
 }

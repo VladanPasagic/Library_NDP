@@ -19,6 +19,7 @@
 							<element name="active" type="boolean" />
 							<element name="handled" type="boolean" />
 							<element name="approved" type="boolean" />
+							<element name="port" type="int" />
 						</sequence>
 					</complexType>
 				</element>

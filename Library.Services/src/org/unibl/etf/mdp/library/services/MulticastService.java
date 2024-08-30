@@ -33,8 +33,12 @@ public class MulticastService implements IMulticastService {
 		try {
 			socket = new MulticastSocket();
 			InetAddress inetAddress = InetAddress.getByName(address);
-			SocketAddress socketAddress = new InetSocketAddress(inetAddress, port);
-			NetworkInterface netIf = NetworkInterface.getNetworkInterfaces().nextElement();
+			/*
+			 * SocketAddress socketAddress = new InetSocketAddress(inetAddress, port);
+			 * NetworkInterface netIf =
+			 * NetworkInterface.getNetworkInterfaces().nextElement();
+			 * socket.joinGroup(socketAddress, netIf);
+			 */
 			socket.joinGroup(inetAddress);
 			buffer = text.getBytes();
 			DatagramPacket packet = new DatagramPacket(buffer, buffer.length, inetAddress, port);

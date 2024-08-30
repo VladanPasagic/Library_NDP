@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MenuBar layoutY="2.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="View">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Books" />
+                  <MenuItem mnemonicParsing="false" text="Chats" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Send">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Message to library" />
+               </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <ComboBox layoutX="55.0" layoutY="76.0" prefHeight="34.0" prefWidth="490.0" />
+      <Button layoutX="244.0" layoutY="256.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="95.0" text="View" />
+   </children>
+</AnchorPane>

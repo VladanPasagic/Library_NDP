@@ -28,6 +28,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -48,8 +49,7 @@ public class BooksController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		books = FXCollections.observableArrayList();
-		BookEntity[] list = HttpUtils.get(propertyLoaderService.getProperty("LIBRARY_SERVER") + "books",
-				BookEntity[].class);
+		BookEntity[] list = HttpUtils.get(propertyLoaderService.getProperty("BASE_URL") + "books", BookEntity[].class);
 		for (BookEntity entity : list)
 			books.add(entity);
 		tableView.setItems(books);
@@ -62,7 +62,8 @@ public class BooksController implements Initializable {
 					private final Button button = new Button("View");
 					{
 						button.setOnAction((ActionEvent event) -> {
-							getBookDetails(event);
+							BookEntity entity = getTableView().getItems().get(getIndex());
+							getBookDetails(event, entity);
 						});
 					}
 
@@ -84,9 +85,7 @@ public class BooksController implements Initializable {
 
 	}
 
-	@FXML
-	private void getBookDetails(ActionEvent event) {
-		BookEntity entity = tableView.getSelectionModel().getSelectedItem();
+	private void getBookDetails(ActionEvent event, BookEntity entity) {
 		if (entity == null) {
 			AlertUtils.setAlert(AlertType.INFORMATION, "Not selected", null, "Book not selected");
 		}
@@ -97,9 +96,13 @@ public class BooksController implements Initializable {
 			Parent root = loader.load();
 			BookDetailsController controller = loader.getController();
 			controller.getBook(entity.getId());
-			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			Stage stage = new Stage();
+			stage.initOwner(primary);
+			stage.initModality(Modality.WINDOW_MODAL);
 			Scene scene = new Scene(root);
-			stage.show();
+			stage.setScene(scene);
+			stage.showAndWait();
 		} catch (MalformedURLException e) {
 			loggerService.logError("Couldn't load scene", e);
 		} catch (IOException e) {
