@@ -81,6 +81,15 @@ public class UsersController implements Initializable {
 		for (UserEntity entity : list)
 			users.add(entity);
 		tableView.setItems(users);
-		
+	}
+
+	@FXML
+	private void switchToOrders(ActionEvent event) {
+		menuController.switchToOrders(event);
+	}
+
+	@FXML
+	private void switchToBooks(ActionEvent event) {
+		menuController.switchToBooks(event);
 	}
 }

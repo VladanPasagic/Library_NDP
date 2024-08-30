@@ -19,18 +19,22 @@
 	<children>
 		<MenuBar layoutY="2.0">
 			<menus>
-				<Menu mnemonicParsing="false" text="View">
+				<Menu mnemonicParsing=" false " text="View">
 					<items>
 						<MenuItem mnemonicParsing="false"
 							onAction="#switchToUsers" text="Users" />
 						<MenuItem mnemonicParsing="false"
 							onAction="#switchToRequests" text="Requests" />
+							<MenuItem mnemonicParsing="false"
+							onAction="#switchToBooks" text="Books" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Send">
 					<items>
 						<MenuItem mnemonicParsing="false"
 							onAction="#switchToMulticastMessageSend" text="Message" />
+						<MenuItem mnemonicParsing="false"
+							onAction="#switchToOrders" text="Order" />
 					</items>
 				</Menu>
 			</menus>

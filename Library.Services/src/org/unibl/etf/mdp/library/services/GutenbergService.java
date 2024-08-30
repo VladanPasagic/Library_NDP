@@ -46,7 +46,7 @@ public class GutenbergService implements IGutenbergService {
 				lineChecker(entity, line);
 				pw.println(line);
 			}
-			entity.setContent(file);
+			entity.setContent(file.getPath());
 		} catch (MalformedURLException ex) {
 			loggerService.logError("Malformed URL", ex);
 		} catch (URISyntaxException ex) {

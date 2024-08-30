@@ -46,4 +46,24 @@ public class MenuController {
 			loggerService.logError("Couldn't load scene", ex);
 		}
 	}
+	
+	public void switchToBooks(ActionEvent event)
+	{
+		try {
+			URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/BooksScene.fxml").toUri().toURL();
+			sceneSwitcherService.switchScene(url, event, true);
+		} catch (IOException ex) {
+			loggerService.logError("Couldn't load scene", ex);
+		}
+	}
+	
+	public void switchToOrders(ActionEvent event)
+	{
+		try {
+			URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/OrdersScene.fxml").toUri().toURL();
+			sceneSwitcherService.switchScene(url, event, true);
+		} catch (IOException ex) {
+			loggerService.logError("Couldn't load scene", ex);
+		}
+	}
 }

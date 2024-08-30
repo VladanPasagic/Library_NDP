@@ -81,6 +81,15 @@ public class RegistrationRequestsController implements Initializable {
 		for (UserEntity entity : list)
 			requests.add(entity);
 		tableView.setItems(requests);
+	}
 
+	@FXML
+	private void switchToOrders(ActionEvent event) {
+		menuController.switchToOrders(event);
+	}
+
+	@FXML
+	private void switchToBooks(ActionEvent event) {
+		menuController.switchToBooks(event);
 	}
 }

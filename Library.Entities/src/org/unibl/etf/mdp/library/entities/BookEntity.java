@@ -1,7 +1,5 @@
 package org.unibl.etf.mdp.library.entities;
 
-import java.io.File;
-import java.util.Date;
 import java.util.UUID;
 
 public class BookEntity {
@@ -12,7 +10,7 @@ public class BookEntity {
 	private String frontPageLink;
 	private String releaseDate;
 	private String language;
-	private File content;
+	private String contentPath;
 
 	public UUID getId() {
 		return id;
@@ -66,12 +64,12 @@ public class BookEntity {
 		this.language = language;
 	}
 
-	public File getContent() {
-		return content;
+	public String getContentPath() {
+		return contentPath;
 	}
 
-	public void setContent(File content) {
-		this.content = content;
+	public void setContent(String contentPath) {
+		this.contentPath = contentPath;
 	}
 
 	public void setId(UUID id) {

@@ -11,11 +11,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
 	prefWidth="600.0" xmlns="http://javafx.com/javafx/22"
 	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="org.unibl.etf.mdp.library.controllers.UsersController">
+	fx:controller="org.unibl.etf.mdp.library.controllers.BooksController">
 	<children>
 		<MenuBar layoutY="2.0">
 			<menus>
@@ -25,7 +26,7 @@
 							onAction="#switchToUsers" text="Users" />
 						<MenuItem mnemonicParsing="false"
 							onAction="#switchToRequests" text="Requests" />
-							<MenuItem mnemonicParsing="false"
+						<MenuItem mnemonicParsing="false"
 							onAction="#switchToBooks" text="Books" />
 					</items>
 				</Menu>
@@ -39,44 +40,5 @@
 				</Menu>
 			</menus>
 		</MenuBar>
-		<TableView fx:id="tableView" layoutX="36.0" layoutY="119.0"
-			prefHeight="209.0" prefWidth="528.0">
-			<columns>
-				<TableColumn text="Username">
-					<cellValueFactory>
-						<PropertyValueFactory property="username" />
-					</cellValueFactory>
-				</TableColumn>
-				<TableColumn text="E-Mail">
-					<cellValueFactory>
-						<PropertyValueFactory property="email" />
-					</cellValueFactory>
-				</TableColumn>
-				<TableColumn text="First Name">
-					<cellValueFactory>
-						<PropertyValueFactory property="firstName" />
-					</cellValueFactory>
-				</TableColumn>
-				<TableColumn text="Last Name">
-					<cellValueFactory>
-						<PropertyValueFactory property="lastName" />
-					</cellValueFactory>
-				</TableColumn>
-				<TableColumn text="Address">
-					<cellValueFactory>
-						<PropertyValueFactory property="address" />
-					</cellValueFactory>
-				</TableColumn>
-			</columns>
-		</TableView>
-		<Label layoutX="243.0" layoutY="64.0" text="Users View">
-			<font>
-				<Font size="24.0" />
-			</font>
-		</Label>
-		<Button layoutX="198.0" layoutY="343.0" mnemonicParsing="false"
-			text="Block" onAction="#blockUser" />
-		<Button layoutX="358.0" layoutY="343.0" mnemonicParsing="false"
-			text="Delete" onAction="#deleteUser" />
 	</children>
 </AnchorPane>

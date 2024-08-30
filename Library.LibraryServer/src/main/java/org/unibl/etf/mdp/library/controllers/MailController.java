@@ -10,6 +10,7 @@ import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -21,8 +22,9 @@ public class MailController {
 	private IMailSendService mailSendService = MailSendService.getInstance(propertyLoaderService);
 	
 	@POST
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response sendMail() {
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("{id}")
+	public Response sendMail(@PathParam("id")String id) {
 		return Response.ok().build();
 	}
 }

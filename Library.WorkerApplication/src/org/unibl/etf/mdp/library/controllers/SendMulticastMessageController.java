@@ -40,6 +40,16 @@ public class SendMulticastMessageController {
 	}
 
 	@FXML
+	private void switchToBooks(ActionEvent event) {
+		menuController.switchToBooks(event);
+	}
+
+	@FXML
+	private void switchToOrders(ActionEvent event) {
+		menuController.switchToOrders(event);
+	}
+
+	@FXML
 	private void sendMessage(ActionEvent event) {
 		if (StringUtils.isNullOrEmpty(content.getText())) {
 			AlertUtils.setAlert(AlertType.INFORMATION, "Field empty", null, "Message cannot be empty");
