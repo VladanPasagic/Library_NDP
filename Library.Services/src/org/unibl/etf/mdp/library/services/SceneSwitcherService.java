@@ -3,7 +3,6 @@ package org.unibl.etf.mdp.library.services;
 import java.io.IOException;
 import java.net.URL;
 
-import org.unibl.etf.mdp.library.interfaces.IInitializable;
 import org.unibl.etf.mdp.library.services.interfaces.ISceneSwitcherService;
 
 import javafx.event.ActionEvent;
@@ -32,9 +31,7 @@ public class SceneSwitcherService implements ISceneSwitcherService {
 	}
 
 	public void switchScene(URL url, ActionEvent event, boolean isMenuItem) throws IOException {
-		FXMLLoader loader = new FXMLLoader(url);
-		root = loader.load();
-		var controller = loader.getController();
+		root = FXMLLoader.load(url);
 		if (isMenuItem) {
 			stage = (Stage) (((MenuItem) event.getSource()).getParentPopup().getOwnerWindow());
 		} else {
@@ -43,8 +40,5 @@ public class SceneSwitcherService implements ISceneSwitcherService {
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-		if (controller instanceof IInitializable) {
-			((IInitializable) controller).init();
-		}
 	}
 }

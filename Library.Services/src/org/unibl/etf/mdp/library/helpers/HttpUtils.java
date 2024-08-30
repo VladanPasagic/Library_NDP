@@ -48,8 +48,10 @@ public class HttpUtils {
 		Response response = target.request(MediaType.APPLICATION_JSON)
 				.put(Entity.entity("1", MediaType.APPLICATION_JSON));
 		if (response.getStatus() == 200) {
+			close(response, client);
 			return true;
 		} else {
+			close(response, client);
 			return false;
 		}
 	}
@@ -59,8 +61,24 @@ public class HttpUtils {
 		WebTarget target = client.target(url);
 		Response response = target.request(MediaType.APPLICATION_JSON).delete();
 		if (response.getStatus() == 200) {
+			close(response, client);
 			return true;
 		} else {
+			close(response, client);
+			return false;
+		}
+	}
+
+	public static <T> boolean multiPartForm(String url, T content) {
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target(url);
+		Response response = target.request(MediaType.APPLICATION_JSON)
+				.post(Entity.entity(content, MediaType.MULTIPART_FORM_DATA));
+		if (response.getStatus() == 200) {
+			close(response, client);
+			return true;
+		} else {
+			close(response, client);
 			return false;
 		}
 	}

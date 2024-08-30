@@ -12,6 +12,7 @@ import org.unibl.etf.mdp.library.helpers.AlertUtils;
 import org.unibl.etf.mdp.library.services.LoggerService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert.AlertType;
 
 public class MulticastListenerThread extends Thread {
@@ -25,6 +26,7 @@ public class MulticastListenerThread extends Thread {
 		this.port = port;
 	}
 
+	@Override
 	public void run() {
 		MulticastSocket socket = null;
 		byte[] buffer = new byte[1024];
@@ -38,12 +40,12 @@ public class MulticastListenerThread extends Thread {
 				DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 				socket.receive(packet);
 				String received = new String(packet.getData(), 0, packet.getLength());
-				AlertUtils.setAlert(AlertType.INFORMATION, "Multicast message", "New multicast message", received);
+				Platform.runLater(() -> AlertUtils.setAlert(AlertType.INFORMATION, "Multicast message",
+						"New multicast message", received));
 			}
 		} catch (IOException ex) {
 			loggerService.logError("Error setting up multicast listener", ex);
 		}
-
 	}
 
 }
