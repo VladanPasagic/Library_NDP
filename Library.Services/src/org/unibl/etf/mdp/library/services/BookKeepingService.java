@@ -7,6 +7,8 @@ import org.unibl.etf.mdp.library.services.interfaces.IBookkeepingService;
 
 public class BookKeepingService implements IBookkeepingService {
 
+	private ReceiptService receiptService = new ReceiptService();
+	
 	public BookKeepingService() throws RemoteException {
 
 	}
