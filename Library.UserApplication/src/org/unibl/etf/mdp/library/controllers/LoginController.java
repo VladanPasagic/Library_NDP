@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 
+import org.unibl.etf.mdp.library.entities.UserEntity;
 import org.unibl.etf.mdp.library.helpers.AlertUtils;
 import org.unibl.etf.mdp.library.helpers.HttpUtils;
 import org.unibl.etf.mdp.library.helpers.StringUtils;
@@ -14,6 +15,8 @@ import org.unibl.etf.mdp.library.services.SceneSwitcherService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
 import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
 import org.unibl.etf.mdp.library.services.interfaces.ISceneSwitcherService;
+import org.unibl.etf.mdp.library.services.internal.CurrentLoggedInUserService;
+import org.unibl.etf.mdp.library.threads.internal.ServerThread;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,10 +45,13 @@ public class LoginController {
 			return;
 		}
 		LoginRequest loginRequest = new LoginRequest(username.getText(), password.getText());
-		boolean status = HttpUtils.post(propertyLoaderService.getProperty("BASE_URL") + "auth/login", loginRequest, LoginRequest.class);
-		if (status) {
+		UserEntity entity = HttpUtils.post(propertyLoaderService.getProperty("LIBRARY_SERVER") + "auth/login", loginRequest,
+				UserEntity.class);
+		if (entity != null) {
 			try {
 				URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/BooksScene.fxml").toUri().toURL();
+				CurrentLoggedInUserService.current = entity;
+				ServerThread.getInstance().start();
 				sceneSwitcherService.switchScene(url, event, false);
 			} catch (IOException ex) {
 				logger.logError("Couldn't load scene", ex);

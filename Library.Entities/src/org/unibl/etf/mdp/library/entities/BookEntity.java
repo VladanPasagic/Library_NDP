@@ -1,8 +1,13 @@
 package org.unibl.etf.mdp.library.entities;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class BookEntity {
+public class BookEntity implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9169527981996260602L;
 	private UUID id;
 	private String ISBN;
 	private String name;
@@ -91,6 +96,11 @@ public class BookEntity {
 		this.releaseDate = releaseDate;
 		this.language = language;
 		this.contentPath = contentPath;
+	}
+
+	@Override
+	public String toString() {
+		return name + ", " + author;
 	}
 
 }

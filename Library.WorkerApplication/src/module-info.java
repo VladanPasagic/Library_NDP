@@ -9,6 +9,7 @@ module Library.WorkerApplication {
 	requires com.fasterxml.jackson.core;
 	requires jakarta.xml.bind;
 	requires jersey.hk2;
+	requires com.rabbitmq.client;
 
 	opens org.unibl.etf.mdp.library.main to javafx.graphics, javafx.fxml;
 	opens org.unibl.etf.mdp.library.controllers to javafx.fxml;

@@ -36,6 +36,7 @@ public class BooksController implements Initializable {
 
 	private ILoggerService loggerService = LoggerService.getLogger(getClass().getName());
 	private IPropertyLoaderService propertyLoaderService = PropertyLoaderService.load(loggerService, false, null);
+	private MenuController menuController = new MenuController();
 
 	private ObservableList<BookEntity> books;
 
@@ -49,7 +50,8 @@ public class BooksController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		books = FXCollections.observableArrayList();
-		BookEntity[] list = HttpUtils.get(propertyLoaderService.getProperty("BASE_URL") + "books", BookEntity[].class);
+		BookEntity[] list = HttpUtils.get(propertyLoaderService.getProperty("LIBRARY_SERVER") + "books",
+				BookEntity[].class);
 		for (BookEntity entity : list)
 			books.add(entity);
 		tableView.setItems(books);
@@ -108,5 +110,20 @@ public class BooksController implements Initializable {
 		} catch (IOException e) {
 			loggerService.logError("Couldn't load scene", e);
 		}
+	}
+
+	@FXML
+	private void goToBooks(ActionEvent event) {
+		return;
+	}
+
+	@FXML
+	private void goToMessageSend(ActionEvent event) {
+		menuController.switchToMulticastMessageSend(event);
+	}
+
+	@FXML
+	private void goToChats(ActionEvent event) {
+		menuController.switchToChats(event);
 	}
 }

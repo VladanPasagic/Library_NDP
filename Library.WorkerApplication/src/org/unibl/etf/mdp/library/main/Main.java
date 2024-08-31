@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 
 import org.unibl.etf.mdp.library.services.LoggerService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
+import org.unibl.etf.mdp.library.threads.internal.ServerThread;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		new ServerThread().start();
 		try {
 			URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/UsersScene.fxml").toUri().toURL();
 			Parent root = FXMLLoader.load(url);

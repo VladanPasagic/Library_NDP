@@ -22,18 +22,18 @@ public class HttpUtils {
 		}
 	}
 
-	public static <T> boolean post(String url, T body, Class<T> responseType) {
+	public static <T, G> G post(String url, T body, Class<G> responseType) {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target(url);
 		Response response = target.request(MediaType.APPLICATION_JSON)
 				.post(Entity.entity(body, MediaType.APPLICATION_JSON));
 		if (response.getStatus() == 201 || response.getStatus() == 200) {
-			T responseEntity = response.readEntity(responseType);
+			G responseEntity = response.readEntity(responseType);
 			close(response, client);
-			return true;
+			return responseEntity;
 		} else {
 			close(response, client);
-			return false;
+			return null;
 		}
 	}
 

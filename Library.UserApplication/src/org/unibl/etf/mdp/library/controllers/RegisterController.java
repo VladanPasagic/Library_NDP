@@ -9,8 +9,10 @@ import org.unibl.etf.mdp.library.helpers.HttpUtils;
 import org.unibl.etf.mdp.library.helpers.StringUtils;
 import org.unibl.etf.mdp.library.requests.RegistrationRequest;
 import org.unibl.etf.mdp.library.services.LoggerService;
+import org.unibl.etf.mdp.library.services.PropertyLoaderService;
 import org.unibl.etf.mdp.library.services.SceneSwitcherService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
+import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
 import org.unibl.etf.mdp.library.services.interfaces.ISceneSwitcherService;
 
 import javafx.event.ActionEvent;
@@ -23,6 +25,7 @@ public class RegisterController {
 
 	private ISceneSwitcherService sceneSwitcherService = SceneSwitcherService.getSwitcherService();
 	private ILoggerService logger = LoggerService.getLogger(getClass().getName());
+	private IPropertyLoaderService propertyLoaderService = PropertyLoaderService.load(logger, false, null);
 
 	@FXML
 	private TextField firstName;
@@ -62,7 +65,8 @@ public class RegisterController {
 		}
 		RegistrationRequest request = new RegistrationRequest(firstName.getText(), lastName.getText(),
 				address.getText(), email.getText(), username.getText(), password.getText());
-		boolean success = HttpUtils.post("", request, RegistrationRequest.class);
+		boolean success = HttpUtils.post(propertyLoaderService.getProperty("LIBRARY_SERVER") + "auth/register", request,
+				Boolean.class);
 
 	}
 

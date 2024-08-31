@@ -6,7 +6,7 @@ import org.unibl.etf.mdp.library.services.PropertyLoaderService;
 import org.unibl.etf.mdp.library.services.interfaces.IAuthenticationService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
 import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
-
+import org.unibl.etf.mdp.library.entities.UserEntity;
 import org.unibl.etf.mdp.library.requests.LoginRequest;
 import org.unibl.etf.mdp.library.requests.RegistrationRequest;
 
@@ -41,9 +41,9 @@ public class AuthenticationController {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response login(LoginRequest request) {
-		boolean result = authenticationService.login(request);
-		if (result) {
-			return Response.status(200).build();
+		UserEntity result = authenticationService.login(request);
+		if (result != null) {
+			return Response.status(200).entity(result).build();
 		} else {
 			return Response.status(401).build();
 		}

@@ -18,6 +18,24 @@
 	xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="org.unibl.etf.mdp.library.controllers.BooksController">
 	<children>
+		<MenuBar layoutY="2.0">
+			<menus>
+				<Menu mnemonicParsing="false" text="View">
+					<items>
+						<MenuItem mnemonicParsing="false" text="Books"
+							onAction="#goToBooks" />
+						<MenuItem mnemonicParsing="false" text="Chats"
+							onAction="#goToChats" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Send">
+					<items>
+						<MenuItem mnemonicParsing="false"
+							text="Message to library" onAction="#goToMessageSend" />
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
 		<TableView fx:id="tableView" layoutX="36.0" layoutY="119.0"
 			prefHeight="209.0" prefWidth="528.0">
 			<columns>

@@ -1,6 +1,7 @@
 package org.unibl.etf.mdp.library.services;
 
 import java.io.IOException;
+import java.net.ServerSocket;
 
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
@@ -43,13 +44,12 @@ public class SecureSocketService implements ISecureSocketService {
 	}
 
 	@Override
-	public SSLServerSocket getServerSocket(int port) {
+	public ServerSocket getServerSocket(int port) {
 		System.setProperty("javax.net.ssl.trustStore", propertyLoaderService.getProperty("KEY_STORE_PATH"));
 		System.setProperty("javax.net.ssl.trustStorePassword", propertyLoaderService.getProperty("KEY_STORE_PASSWORD"));
-
 		SSLServerSocketFactory ssf = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
 		try {
-			SSLServerSocket socket = (SSLServerSocket) ssf.createServerSocket(port);
+			ServerSocket socket = ssf.createServerSocket(port);
 			return socket;
 		} catch (IOException e) {
 			loggerService.logError("Couldn't create client socket", e);

@@ -2,8 +2,8 @@
 <Users>
     <User>
         <id>6bdebe51-4e33-44bf-8581-1aa8989638d8</id>
-        <firstName>Vladan</firstName>
-        <lastName>Pasagic</lastName>
+        <firstName>Joe</firstName>
+        <lastName>Mama</lastName>
         <address>BL</address>
         <email>pasagicvladan01@gmail.com</email>
         <username>pasha</username>
@@ -11,7 +11,7 @@
         <active>true</active>
         <handled>true</handled>
         <approved>true</approved>
-        <port>8433</port>
+        <port>8463</port>
     </User>
     <User>
         <id>92dd6baf-b0a6-46fe-b1ea-8eefb55d4a5c</id>
@@ -28,15 +28,15 @@
     </User>
     <User>
         <id>127fd759-22ce-4ba7-b505-c6048629122a</id>
-        <firstName>Vladan</firstName>
-        <lastName>Pasagic</lastName>
+        <firstName>Johny</firstName>
+        <lastName>Bravo</lastName>
         <address>BL</address>
         <email>vladanpasagic@gmail.com</email>
         <username>pasha2</username>
         <password>pasha</password>
-        <active>false</active>
-        <handled>false</handled>
-        <approved>false</approved>
+        <active>true</active>
+        <handled>true</handled>
+        <approved>true</approved>
         <port>8435</port>
     </User>
 </Users>

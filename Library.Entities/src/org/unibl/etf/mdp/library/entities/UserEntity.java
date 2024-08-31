@@ -9,7 +9,7 @@ import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "User")
 @XmlType(propOrder = { "id", "firstName", "lastName", "address", "email", "username", "password", "active", "handled",
-		"approved" })
+		"approved", "port" })
 public class UserEntity {
 	private UUID id;
 	private String firstName;
@@ -140,6 +140,11 @@ public class UserEntity {
 		this.handled = false;
 		this.approved = false;
 		this.port = new Random(System.currentTimeMillis()).nextInt(49151 - 1024) + 1024;
+	}
+
+	@Override
+	public String toString() {
+		return firstName + ", " + lastName;
 	}
 
 }

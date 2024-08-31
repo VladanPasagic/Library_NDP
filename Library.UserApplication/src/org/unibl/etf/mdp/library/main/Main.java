@@ -8,7 +8,9 @@ import org.unibl.etf.mdp.library.services.LoggerService;
 import org.unibl.etf.mdp.library.services.PropertyLoaderService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
 import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
+import org.unibl.etf.mdp.library.services.internal.ChatService;
 import org.unibl.etf.mdp.library.threads.MulticastListenerThread;
+import org.unibl.etf.mdp.library.threads.internal.ServerThread;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +27,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		ServerThread thread = ServerThread.getInstance();
 		MulticastListenerThread listenerThread = new MulticastListenerThread(
 				propertyLoaderService.getProperty(MULTICAST_SERVER),
 				Integer.parseInt(propertyLoaderService.getProperty(MULTICAST_PORT)));

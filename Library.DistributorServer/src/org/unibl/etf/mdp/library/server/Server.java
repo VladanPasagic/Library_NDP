@@ -18,7 +18,9 @@ public class Server {
 		try {
 			ServerSocket ss = new ServerSocket(Integer.parseInt(propertyLoaderService.getProperty(TCP_PORT_PROPERTY)));
 			while (true) {
+				System.out.println("Server started");
 				Socket socket = ss.accept();
+				System.out.println("Connection accepted");
 				new ServerThread(socket, loggerService, propertyLoaderService).start();
 			}
 		} catch (Exception ex) {

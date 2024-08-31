@@ -26,13 +26,13 @@ public class AuthenticationService implements IAuthenticationService {
 	}
 
 	@Override
-	public boolean login(LoginRequest loginRequest) {
+	public UserEntity login(LoginRequest loginRequest) {
 		UserEntity entity = userRepository.findByUsername(loginRequest.getUsername());
 		if (entity == null)
-			return false;
-		if (entity.isActive()==false)
-			return false;
-		return true;
+			return entity;
+		if (entity.isActive() == false)
+			return null;
+		return entity;
 	}
 
 	@Override

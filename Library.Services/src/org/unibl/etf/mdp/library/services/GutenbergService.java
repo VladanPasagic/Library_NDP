@@ -41,17 +41,14 @@ public class GutenbergService implements IGutenbergService {
 			if (dir.exists() == false)
 				dir.mkdirs();
 			File file = new File(dir.getPath() + File.separatorChar + urlParts[urlParts.length - 1]);
-			if (file.exists() == false)
-			{
-				file.createNewFile();
-				PrintWriter pw = new PrintWriter(file);
-				String line = "";
-				while ((line = reader.readLine()) != null) {
-					lineChecker(entity, line);
-					pw.println(line);
-				}
-				pw.close();
+			file.createNewFile();
+			PrintWriter pw = new PrintWriter(file);
+			String line = "";
+			while ((line = reader.readLine()) != null) {
+				lineChecker(entity, line);
+				pw.println(line);
 			}
+			pw.close();
 			entity.setContent(file.getPath());
 		} catch (MalformedURLException ex) {
 			loggerService.logError("Malformed URL", ex);
@@ -69,7 +66,7 @@ public class GutenbergService implements IGutenbergService {
 			entity.setName(line.substring(6));
 		} else if (line.startsWith("Author")) {
 			entity.setAuthor(line.substring(7));
-		} else if (line.startsWith("Release Date")) {
+		} else if (line.toLowerCase().startsWith("Release date".toLowerCase())) {
 			entity.setReleaseDate(line.substring(14));
 		} else if (line.startsWith("Language")) {
 			entity.setLanguage(line.substring(9));

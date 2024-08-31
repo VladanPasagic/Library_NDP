@@ -33,7 +33,7 @@ public class BookDetailsController {
 	private Label label;
 
 	public void getBook(UUID id) {
-		BookEntity entity = HttpUtils.get(propertyLoaderService.getProperty("BASE_URL") + "books/" + id,
+		BookEntity entity = HttpUtils.get(propertyLoaderService.getProperty("LIBRARY_SERVER") + "books/" + id,
 				BookEntity.class);
 		imageView.setImage(new Image(entity.getFrontPageLink()));
 		textArea.setText(entity.getContentPath());
