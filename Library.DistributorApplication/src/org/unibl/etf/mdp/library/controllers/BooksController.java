@@ -89,6 +89,7 @@ public class BooksController implements Initializable {
 			return;
 		}
 		BookEntity book = gutenbergService.getBook(bookField.getText());
+		book.setContent(bookField.getText());
 		BooksService.getBooksService().addBook(book);
 		books.add(book);
 		tableView.refresh();

@@ -67,15 +67,15 @@ public class GutenbergService implements IGutenbergService {
 
 	private BookEntity lineChecker(BookEntity entity, String line) {
 		if (line.startsWith("Title")) {
-			entity.setName(line.substring(6));
+			entity.setName(line.substring(7));
 		} else if (line.startsWith("Author")) {
-			entity.setAuthor(line.substring(7));
+			entity.setAuthor(line.substring(8));
 		} else if (line.toLowerCase().startsWith("Release date".toLowerCase())) {
 			entity.setReleaseDate(line.substring(14));
 		} else if (line.startsWith("Language")) {
-			entity.setLanguage(line.substring(9));
+			entity.setLanguage(line.substring(10));
 		} else if (line.startsWith("ISBN")) {
-			entity.setISBN(line.substring(5));
+			entity.setISBN(line.substring(6));
 		}
 		return entity;
 	}
