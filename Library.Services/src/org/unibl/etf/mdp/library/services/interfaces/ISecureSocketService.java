@@ -9,6 +9,6 @@ public interface ISecureSocketService {
 
 	SSLSocket getClientSocket(String host, int port);
 
-	ServerSocket getServerSocket(int port);
+	SSLServerSocket getServerSocket(int port);
 
 }

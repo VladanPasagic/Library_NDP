@@ -35,7 +35,7 @@ public class ChatDetailsController {
 
 	private SSLSocket socket;
 	private ObjectOutputStream output;
-	private ObjectInputStream input;
+	//private ObjectInputStream input;
 
 	@FXML
 	private TextField messageField;
@@ -69,7 +69,7 @@ public class ChatDetailsController {
 				user.getPort());
 		try {
 			output = new ObjectOutputStream(socket.getOutputStream());
-			input = new ObjectInputStream(socket.getInputStream());
+			//input = new ObjectInputStream(socket.getInputStream());
 		} catch (IOException e) {
 			loggerService.logError("Error opening client streams", e);
 		}
@@ -91,7 +91,6 @@ public class ChatDetailsController {
 			output.flush();
 		} catch (IOException e) {
 			loggerService.logError("Error ending connection", e);
-			// TODO: handle exception
 		}
 	}
 }

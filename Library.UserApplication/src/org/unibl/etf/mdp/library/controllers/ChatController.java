@@ -3,6 +3,7 @@ package org.unibl.etf.mdp.library.controllers;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 import org.unibl.etf.mdp.library.entities.UserEntity;
 import org.unibl.etf.mdp.library.helpers.AlertUtils;
@@ -11,6 +12,7 @@ import org.unibl.etf.mdp.library.services.LoggerService;
 import org.unibl.etf.mdp.library.services.PropertyLoaderService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
 import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
+import org.unibl.etf.mdp.library.services.internal.CurrentLoggedInUserService;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,8 +43,10 @@ public class ChatController implements Initializable {
 		users = FXCollections.observableArrayList();
 		UserEntity[] list = HttpUtils.get(propertyLoaderService.getProperty("LIBRARY_SERVER") + "users",
 				UserEntity[].class);
+		String currentUserId = CurrentLoggedInUserService.current.getId();
 		for (UserEntity entity : list) {
-			users.add(entity);
+			if (entity.getId().equals(currentUserId) == false)
+				users.add(entity);
 		}
 		comboBox.setItems(users);
 	}

@@ -17,14 +17,13 @@ public class InternalServerThread extends Thread {
 
 	private ChatService chatService = ChatService.getChatService();
 	private SSLSocket socket;
-	private ObjectOutputStream output;
+	//private ObjectOutputStream output;
 	private ObjectInputStream input;
 
 	public InternalServerThread(SSLSocket socket) {
-		this.chatService = chatService;
 		this.socket = socket;
 		try {
-			output = new ObjectOutputStream(socket.getOutputStream());
+			//output = new ObjectOutputStream(socket.getOutputStream());
 			input = new ObjectInputStream(socket.getInputStream());
 		} catch (IOException e) {
 			loggerService.logError("Error opening streams", e);

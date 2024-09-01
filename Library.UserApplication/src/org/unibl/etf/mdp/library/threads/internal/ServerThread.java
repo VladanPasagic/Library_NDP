@@ -1,8 +1,8 @@
 package org.unibl.etf.mdp.library.threads.internal;
 
 import java.io.IOException;
-import java.net.ServerSocket;
 
+import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLSocket;
 
 import org.unibl.etf.mdp.library.services.LoggerService;
@@ -34,7 +34,7 @@ public class ServerThread extends Thread {
 
 	@Override
 	public void run() {
-		ServerSocket socket = secureSocketService.getServerSocket(CurrentLoggedInUserService.current.getPort());
+		SSLServerSocket socket = secureSocketService.getServerSocket(CurrentLoggedInUserService.current.getPort());
 		while (true) {
 			try {
 				SSLSocket s = (SSLSocket) socket.accept();
