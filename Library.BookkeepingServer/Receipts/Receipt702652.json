@@ -1,0 +1,19 @@
+{
+  "id": "f9d7978b-8eb0-4e4f-abf2-b8099ed4a818",
+  "receiptItems": [
+    {
+      "id": "9eec25a7-26d3-4cfa-aace-9eb9bf5eff6d",
+      "book": {
+        "id": "db052838-e298-42bb-a86a-1494c630e70e",
+        "name": " Scientific American Supplement, No. 433, April 19, 1884",
+        "author": " Various",
+        "frontPageLink": ".cover.medium.jpg",
+        "releaseDate": "October 1, 2005 [eBook #9076]",
+        "language": " English",
+        "contentPath": "C:\\Users\\pasag\\Books\\pg9076.txt"
+      },
+      "quantity": 33
+    }
+  ],
+  "price": 149.0
+}

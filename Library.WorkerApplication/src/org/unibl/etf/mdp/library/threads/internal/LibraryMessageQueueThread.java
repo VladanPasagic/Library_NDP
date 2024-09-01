@@ -31,11 +31,16 @@ public class LibraryMessageQueueThread extends Thread {
 			Connection connection = messageQueueService.createConnection(host, user, pass);
 			do {
 				OrderEntity order = messageQueueService.receive(connection, "LIBRARY");
-				for (OrderItemEntity orderItem : order.getItems()) {
-					HttpUtils.post(propertyLoaderService.getProperty("LIBRARY_SERVER"), orderItem.getBook());
+				if (order != null) {
+					System.out.println(order.getId());
+					for (OrderItemEntity orderItem : order.getItems()) {
+						HttpUtils.post(propertyLoaderService.getProperty("LIBRARY_SERVER") + "books",
+								orderItem.getBook());
+					}
 				}
+				Thread.sleep(1000);
 			} while (true);
-		} catch (IOException | TimeoutException e) {
+		} catch (IOException | TimeoutException | InterruptedException e) {
 			loggerService.logError("Couldn't load rabbit mq", e);
 		}
 

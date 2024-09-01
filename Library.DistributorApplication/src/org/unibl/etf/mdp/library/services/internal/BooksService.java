@@ -27,7 +27,12 @@ public class BooksService {
 	}
 
 	public List<BookEntity> getBooks() {
-		return Stream.concat(booksFromServer.stream(), localBooks.stream()).toList();
+		List<BookEntity> books = new ArrayList<BookEntity>();
+		var bookList = Stream.concat(booksFromServer.stream(), localBooks.stream()).toList();
+		for (BookEntity bookEntity : bookList) {
+			books.add(bookEntity);
+		}
+		return books;
 	}
 
 	public void addBook(BookEntity book) {

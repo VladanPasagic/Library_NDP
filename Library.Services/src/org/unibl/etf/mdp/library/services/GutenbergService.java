@@ -31,33 +31,37 @@ public class GutenbergService implements IGutenbergService {
 
 	@Override
 	public BookEntity getBook(String url) {
-		String[] urlParts = url.split("/");
 		BookEntity entity = new BookEntity();
-		try {
-			URL book = new URI(url).toURL();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(book.openStream()));
-			String workingDirectory = System.getProperty("user.home");
-			File dir = new File(workingDirectory + File.separatorChar + "Books");
-			if (dir.exists() == false)
-				dir.mkdirs();
-			File file = new File(dir.getPath() + File.separatorChar + urlParts[urlParts.length - 1]);
-			file.createNewFile();
-			PrintWriter pw = new PrintWriter(file);
-			String line = "";
-			while ((line = reader.readLine()) != null) {
-				lineChecker(entity, line);
-				pw.println(line);
+		if (url.startsWith("http://") || url.startsWith("https://")) {
+			String[] urlParts = url.split("/");
+			try {
+				URL book = new URI(url).toURL();
+				BufferedReader reader = new BufferedReader(new InputStreamReader(book.openStream()));
+				String workingDirectory = System.getProperty("user.home");
+				File dir = new File(workingDirectory + File.separatorChar + "Books");
+				if (dir.exists() == false)
+					dir.mkdirs();
+				File file = new File(dir.getPath() + File.separatorChar + urlParts[urlParts.length - 1]);
+				file.createNewFile();
+				PrintWriter pw = new PrintWriter(file);
+				String line = "";
+				while ((line = reader.readLine()) != null) {
+					lineChecker(entity, line);
+					pw.println(line);
+				}
+				pw.close();
+				entity.setContent(file.getPath());
+			} catch (MalformedURLException ex) {
+				loggerService.logError("Malformed URL", ex);
+			} catch (URISyntaxException ex) {
+				loggerService.logError("Error in URI syntax", ex);
+			} catch (IOException ex) {
+				loggerService.logError("Exception while opening stream", ex);
 			}
-			pw.close();
-			entity.setContent(file.getPath());
-		} catch (MalformedURLException ex) {
-			loggerService.logError("Malformed URL", ex);
-		} catch (URISyntaxException ex) {
-			loggerService.logError("Error in URI syntax", ex);
-		} catch (IOException ex) {
-			loggerService.logError("Exception while opening stream", ex);
+			entity.setFrontPageLink(getFrontPageLink(url));
+		} else {
+			entity.setContent(url);
 		}
-		entity.setFrontPageLink(getFrontPageLink(url));
 		return entity;
 	}
 
