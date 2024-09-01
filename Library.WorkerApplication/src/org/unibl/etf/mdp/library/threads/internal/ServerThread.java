@@ -20,7 +20,9 @@ public class ServerThread extends Thread {
 			ServerSocket ss = new ServerSocket(Integer.parseInt(propertyLoaderService.getProperty("TCP_PORT")));
 			while (true) {
 				Socket socket = ss.accept();
-				new InternalServerThread(socket).start();
+				InternalServerThread thread = new InternalServerThread(socket);
+				thread.setDaemon(true);
+				thread.start();
 			}
 		} catch (NumberFormatException | IOException e) {
 			loggerService.logError("Error setting up server", e);

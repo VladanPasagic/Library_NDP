@@ -3,10 +3,7 @@ package org.unibl.etf.mdp.library.threads;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
-import java.net.NetworkInterface;
-import java.net.SocketAddress;
 
 import org.unibl.etf.mdp.library.helpers.AlertUtils;
 import org.unibl.etf.mdp.library.services.LoggerService;
@@ -44,8 +41,8 @@ public class MulticastListenerThread extends Thread {
 				DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 				socket.receive(packet);
 				String received = new String(packet.getData(), 0, packet.getLength());
-				Platform.runLater(() -> AlertUtils.setAlert(AlertType.INFORMATION, "Multicast message",
-						"New multicast message", received));
+				Platform.runLater(
+						() -> AlertUtils.setAlert(AlertType.INFORMATION, "Multicast Message", null, received));
 			}
 		} catch (IOException ex) {
 			loggerService.logError("Error setting up multicast listener", ex);

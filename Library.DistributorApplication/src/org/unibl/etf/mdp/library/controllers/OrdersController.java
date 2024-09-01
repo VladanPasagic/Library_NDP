@@ -1,7 +1,10 @@
 package org.unibl.etf.mdp.library.controllers;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -68,12 +71,23 @@ public class OrdersController implements Initializable {
 			return;
 		}
 		try {
+			IMessageQueueService messageQueueService = new MessageQueueService();
+			String host = propertyLoaderService.getProperty("RABBIT_HOST");
+			String user = propertyLoaderService.getProperty("RABBIT_USER");
+			String pass = propertyLoaderService.getProperty("RABBIT_PASS");
+			try {
+				Connection connection = messageQueueService.createConnection(host, user, pass);
+				messageQueueService.send(connection, "LIBRARY", orderEntity);
+				connection.close();
+			} catch (IOException | TimeoutException e) {
+				loggerService.logError("Couldn't load rabbit mq", e);
+			}
+
 			Registry registry = LocateRegistry
 					.getRegistry(Integer.parseInt(propertyLoaderService.getProperty("RMI_PORT")));
 			IBookkeepingService bookkeepingService = (IBookkeepingService) registry
 					.lookup(propertyLoaderService.getProperty("RMI_NAME"));
 			bookkeepingService.generateReceipt(orderEntity);
-			System.out.println("Started method invocation");
 		} catch (NumberFormatException e) {
 			loggerService.logError("Error parsing number", e);
 		} catch (RemoteException e) {

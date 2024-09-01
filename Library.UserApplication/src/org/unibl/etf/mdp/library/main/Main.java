@@ -20,19 +20,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	private ILoggerService loggerService = LoggerService.getLogger(getClass().getName());
-	private static final String MULTICAST_SERVER = "MULTICAST_SERVER";
-	private static final String MULTICAST_PORT = "MULTICAST_PORT";
 	private IPropertyLoaderService propertyLoaderService = PropertyLoaderService.load(loggerService, false, null);
 
 	@Override
 	public void start(Stage stage) throws Exception {
 		ServerThread thread = ServerThread.getInstance();
 		thread.setDaemon(true);
-		MulticastListenerThread listenerThread = new MulticastListenerThread(
-				propertyLoaderService.getProperty(MULTICAST_SERVER),
-				Integer.parseInt(propertyLoaderService.getProperty(MULTICAST_PORT)));
-		listenerThread.setDaemon(true);
-		listenerThread.start();
 		try {
 			URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/LoginScene.fxml").toUri().toURL();
 			Parent root = FXMLLoader.load(url);

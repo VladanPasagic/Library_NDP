@@ -3,11 +3,10 @@ package org.unibl.etf.mdp.library.controllers;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
-
-import javax.net.ssl.SSLSocket;
 
 import org.unibl.etf.mdp.library.entities.MessageEntity;
 import org.unibl.etf.mdp.library.entities.UserEntity;
@@ -23,6 +22,7 @@ import org.unibl.etf.mdp.library.services.internal.CurrentLoggedInUserService;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -33,9 +33,12 @@ public class ChatDetailsController {
 	private ISecureSocketService secureSocketService = SecureSocketService
 			.getSecureSocketService(propertyLoaderService);
 
-	private SSLSocket socket;
+	private Socket socket;
 	private ObjectOutputStream output;
-	//private ObjectInputStream input;
+	private ObjectInputStream input;
+
+	@FXML
+	private Label usernameLabel;
 
 	@FXML
 	private TextField messageField;
@@ -46,10 +49,12 @@ public class ChatDetailsController {
 	@FXML
 	private void handleSend(ActionEvent event) {
 		UserEntity active = CurrentLoggedInUserService.current;
-		if (StringUtils.isNullOrEmpty(messageField.getText())) {
+		if (StringUtils.isNullOrEmpty(messageField.getText()) == false) {
 			MessageEntity messageEntity = new MessageEntity(messageField.getText(), LocalDateTime.now(),
 					active.getFirstName() + " " + active.getLastName(), UUID.fromString(active.getId()));
 			chatService.sendMessage(UUID.fromString(user.getId()), messageEntity);
+			messageField.clear();
+			getMessages();
 			try {
 				output.writeObject(messageEntity);
 				output.flush();
@@ -63,17 +68,7 @@ public class ChatDetailsController {
 
 	private ChatService chatService = ChatService.getChatService();
 
-	public void getUserMessages(UserEntity user) {
-		this.user = user;
-		this.socket = secureSocketService.getClientSocket(propertyLoaderService.getProperty("SECURE_SERVER_HOST"),
-				user.getPort());
-		try {
-			output = new ObjectOutputStream(socket.getOutputStream());
-			//input = new ObjectInputStream(socket.getInputStream());
-		} catch (IOException e) {
-			loggerService.logError("Error opening client streams", e);
-		}
-
+	private void getMessages() {
 		ArrayList<MessageEntity> messages = chatService.getMessagesFromUUID(UUID.fromString(user.getId()));
 		StringBuilder builder = new StringBuilder();
 		for (MessageEntity messageEntity : messages) {
@@ -82,6 +77,21 @@ public class ChatDetailsController {
 		}
 		chatArea.setText(builder.toString());
 		chatArea.setScrollTop(Double.MAX_VALUE);
+	}
+
+	@FXML
+	private void refresh(ActionEvent event) {
+		getMessages();
+	}
+
+	public void getUserMessages(UserEntity user) throws IOException {
+		this.user = user;
+		usernameLabel.setText(user.toString());
+		this.socket = secureSocketService.getClientSocket(propertyLoaderService.getProperty("SECURE_SERVER_HOST"),
+				user.getPort());
+		output = new ObjectOutputStream(socket.getOutputStream());
+		input = new ObjectInputStream(socket.getInputStream());
+		getMessages();
 	}
 
 	public void onClose() {

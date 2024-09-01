@@ -1,6 +1,8 @@
 package org.unibl.etf.mdp.library.threads.internal;
 
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLSocket;
@@ -11,6 +13,7 @@ import org.unibl.etf.mdp.library.services.SecureSocketService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
 import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
 import org.unibl.etf.mdp.library.services.interfaces.ISecureSocketService;
+import org.unibl.etf.mdp.library.services.internal.ChatService;
 import org.unibl.etf.mdp.library.services.internal.CurrentLoggedInUserService;
 
 public class ServerThread extends Thread {
@@ -32,10 +35,10 @@ public class ServerThread extends Thread {
 
 	@Override
 	public void run() {
-		SSLServerSocket socket = secureSocketService.getServerSocket(CurrentLoggedInUserService.current.getPort());
+		ServerSocket socket = secureSocketService.getServerSocket(CurrentLoggedInUserService.current.getPort());
 		while (true) {
 			try {
-				SSLSocket s = (SSLSocket) socket.accept();
+				Socket s = socket.accept();
 				InternalServerThread internalServerThread = new InternalServerThread(s);
 				internalServerThread.setDaemon(true);
 				internalServerThread.start();

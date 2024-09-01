@@ -4,9 +4,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.unibl.etf.mdp.library.entities.BookEntity;
+import org.unibl.etf.mdp.library.helpers.AlertUtils;
 import org.unibl.etf.mdp.library.helpers.HttpUtils;
+import org.unibl.etf.mdp.library.helpers.StringUtils;
+import org.unibl.etf.mdp.library.requests.NewBookRequest;
+import org.unibl.etf.mdp.library.services.GutenbergService;
 import org.unibl.etf.mdp.library.services.LoggerService;
 import org.unibl.etf.mdp.library.services.PropertyLoaderService;
+import org.unibl.etf.mdp.library.services.interfaces.IGutenbergService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
 import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
 
@@ -16,15 +21,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class BooksController implements Initializable {
 
 	private ILoggerService loggerService = LoggerService.getLogger(getClass().getName());
 	private IPropertyLoaderService propertyLoaderService = PropertyLoaderService.load(loggerService, false, null);
+	private IGutenbergService gutenbergService = GutenbergService.getGutenbergService();
 
 	private MenuController menuController = new MenuController();
 
 	private ObservableList<BookEntity> books;
+
+	@FXML
+	private TextField bookField;
 
 	@FXML
 	private TableView<BookEntity> tableView;
@@ -62,6 +73,37 @@ public class BooksController implements Initializable {
 	@FXML
 	private void switchToRequests(ActionEvent event) {
 		menuController.switchToRequests(event);
+	}
+
+	@FXML
+	private void removeFromLibrary(ActionEvent event) {
+		BookEntity selected = tableView.getSelectionModel().getSelectedItem();
+		if (selected == null) {
+			AlertUtils.setAlert(AlertType.INFORMATION, "Book not selected", null, "Please select a book");
+			return;
+		}
+		HttpUtils.delete(propertyLoaderService.getProperty("LIBRARY_SERVER") + "books/" + selected.getId());
+		books.remove(selected);
+	}
+
+	@FXML
+	private void addToLibrary(ActionEvent event) {
+		if (StringUtils.isNullOrEmpty(bookField.getText())) {
+			AlertUtils.setAlert(AlertType.INFORMATION, "Field empty", null, "Field cannot be empty");
+			return;
+		}
+		BookEntity book = gutenbergService.getBook(bookField.getText());
+		NewBookRequest bookRequest = new NewBookRequest();
+		bookRequest.setAuthor(book.getAuthor());
+		bookRequest.setContentPath(book.getContentPath());
+		bookRequest.setFrontPageLink(book.getFrontPageLink());
+		bookRequest.setISBN(book.getISBN());
+		bookRequest.setLanguage(book.getLanguage());
+		bookRequest.setName(book.getName());
+		bookRequest.setReleaseDate(book.getReleaseDate());
+		HttpUtils.post(propertyLoaderService.getProperty("LIBRARY_SERVER") + "books", bookRequest);
+		books.add(book);
+		tableView.refresh();
 	}
 
 }

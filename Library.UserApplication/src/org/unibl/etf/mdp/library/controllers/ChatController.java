@@ -1,5 +1,6 @@
 package org.unibl.etf.mdp.library.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
@@ -74,6 +75,9 @@ public class ChatController implements Initializable {
 			stage.setOnCloseRequest(evnt -> {
 				controller.onClose();
 			});
+		} catch (IOException e) {
+			AlertUtils.setAlert(AlertType.INFORMATION, "", null, "User not online");
+			loggerService.logError("user not online", e);
 		} catch (Exception e) {
 			loggerService.logError("Error loading scene", e);
 		}

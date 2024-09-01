@@ -16,7 +16,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/LibraryEntities.jar">
+	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/LibraryEntities.jar" sourcepath="/Library.Entities">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

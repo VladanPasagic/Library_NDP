@@ -16,6 +16,7 @@ import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
 import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
 import org.unibl.etf.mdp.library.services.interfaces.ISceneSwitcherService;
 import org.unibl.etf.mdp.library.services.internal.CurrentLoggedInUserService;
+import org.unibl.etf.mdp.library.threads.MulticastListenerThread;
 import org.unibl.etf.mdp.library.threads.internal.ServerThread;
 
 import javafx.event.ActionEvent;
@@ -26,6 +27,8 @@ import javafx.scene.control.Alert.AlertType;
 
 public class LoginController {
 
+	private static final String MULTICAST_SERVER = "MULTICAST_SERVER";
+	private static final String MULTICAST_PORT = "MULTICAST_PORT";
 	private ISceneSwitcherService sceneSwitcherService = SceneSwitcherService.getSwitcherService();
 	private ILoggerService logger = LoggerService.getLogger(getClass().getName());
 	private IPropertyLoaderService propertyLoaderService = PropertyLoaderService.load(logger, false, null);
@@ -45,14 +48,19 @@ public class LoginController {
 			return;
 		}
 		LoginRequest loginRequest = new LoginRequest(username.getText(), password.getText());
-		UserEntity entity = HttpUtils.post(propertyLoaderService.getProperty("LIBRARY_SERVER") + "auth/login", loginRequest,
-				UserEntity.class);
+		UserEntity entity = HttpUtils.post(propertyLoaderService.getProperty("LIBRARY_SERVER") + "auth/login",
+				loginRequest, UserEntity.class);
 		if (entity != null) {
 			try {
 				URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/BooksScene.fxml").toUri().toURL();
 				CurrentLoggedInUserService.current = entity;
 				ServerThread.getInstance().start();
 				sceneSwitcherService.switchScene(url, event, false);
+				MulticastListenerThread listenerThread = new MulticastListenerThread(
+						propertyLoaderService.getProperty(MULTICAST_SERVER),
+						Integer.parseInt(propertyLoaderService.getProperty(MULTICAST_PORT)));
+				listenerThread.setDaemon(true);
+				listenerThread.start();
 			} catch (IOException ex) {
 				logger.logError("Couldn't load scene", ex);
 			}

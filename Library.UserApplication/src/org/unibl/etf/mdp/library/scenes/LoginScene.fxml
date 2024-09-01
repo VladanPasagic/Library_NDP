@@ -18,7 +18,7 @@
 			<children>
 				<Button layoutX="260.0" layoutY="210.0"
 					mnemonicParsing="false" onAction="#handleLogin" prefHeight="25.0"
-					prefWidth="65.0" text="Login" />
+					prefWidth="65.0" text="Login" defaultButton="true"/>
 				<Button layoutX="260.0" layoutY="250.0"
 					mnemonicParsing="false" onAction="#handleSwitchToRegister"
 					prefHeight="25.0" prefWidth="65.0" text="Register" />

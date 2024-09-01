@@ -9,32 +9,24 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-	prefWidth="600.0" xmlns="http://javafx.com/javafx/22"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="org.unibl.etf.mdp.library.controllers.BooksController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.unibl.etf.mdp.library.controllers.BooksController">
 	<children>
 		<MenuBar layoutY="2.0">
 			<menus>
 				<Menu mnemonicParsing="false" text="View">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#goToBooks"
-							text="Books" />
-						<MenuItem mnemonicParsing="false" onAction="#goToChats"
-							text="Chats" />
+						<MenuItem mnemonicParsing="false" onAction="#goToBooks" text="Books" />
+						<MenuItem mnemonicParsing="false" onAction="#goToChats" text="Chats" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Send">
 					<items>
-						<MenuItem mnemonicParsing="false"
-							onAction="#goToMessageSend" text="Message to library" />
+						<MenuItem mnemonicParsing="false" onAction="#goToMessageSend" text="Message to library" />
 					</items>
 				</Menu>
 			</menus>
 		</MenuBar>
-		<TableView fx:id="tableView" layoutX="36.0" layoutY="89.0"
-			prefHeight="209.0" prefWidth="528.0" >
+		<TableView fx:id="tableView" layoutX="36.0" layoutY="89.0" prefHeight="209.0" prefWidth="528.0">
 			<columns>
 				<TableColumn text="ISBN">
 					<cellValueFactory>
@@ -65,7 +57,6 @@
 				</TableColumn>
 			</columns>
 		</TableView>
-		<Button layoutX="266.0" layoutY="329.0" mnemonicParsing="false"
-			prefHeight="25.0" prefWidth="74.0" text="Buy" onAction="#buyBooks" />
+		<Button layoutX="271.0" layoutY="329.0" mnemonicParsing="false" onAction="#buyBooks" prefHeight="25.0" prefWidth="65.0" text="Buy" />
 	</children>
 </AnchorPane>

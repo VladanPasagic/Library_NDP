@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.unibl.etf.mdp.library.entities.MessageEntity;
+import org.unibl.etf.mdp.library.threads.internal.InternalServerThread;
 
 public class ChatService {
 	private Map<UUID, ArrayList<MessageEntity>> messages = new HashMap<UUID, ArrayList<MessageEntity>>();
@@ -43,4 +44,5 @@ public class ChatService {
 			messages.put(receiverId, messageEntities);
 		}
 	}
+
 }

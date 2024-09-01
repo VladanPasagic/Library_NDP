@@ -22,10 +22,10 @@ public class ClientThread extends Thread {
 
 	@Override
 	public void run() {
+		Socket socket;
 		try {
 			InetAddress address = InetAddress.getByName(propertyLoaderService.getProperty("LIBRARY_GUI"));
-			Socket socket = new Socket(address,
-					Integer.parseInt(propertyLoaderService.getProperty("LIBRARY_GUI_PORT")));
+			socket = new Socket(address, Integer.parseInt(propertyLoaderService.getProperty("LIBRARY_GUI_PORT")));
 			ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
 			ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
 			DistributorEntity distributorEntity = new DistributorEntity("Distributor" + new Random().nextInt(100000));
@@ -44,7 +44,6 @@ public class ClientThread extends Thread {
 		} catch (NumberFormatException | IOException e) {
 			loggerService.logError("Error setting up connections to server", e);
 		}
-
 	}
 
 }

@@ -1,7 +1,11 @@
 package org.unibl.etf.mdp.library.services;
 
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
+import javax.net.ServerSocketFactory;
+import javax.net.SocketFactory;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
@@ -28,13 +32,13 @@ public class SecureSocketService implements ISecureSocketService {
 	}
 
 	@Override
-	public SSLSocket getClientSocket(String host, int port) {
+	public Socket getClientSocket(String host, int port) {
 		System.setProperty("javax.net.ssl.trustStore", propertyLoaderService.getProperty("KEY_STORE_PATH"));
 		System.setProperty("javax.net.ssl.trustStorePassword", propertyLoaderService.getProperty("KEY_STORE_PASSWORD"));
-		SSLSocketFactory sf = (SSLSocketFactory) SSLSocketFactory.getDefault();
-		SSLSocket socket;
+		SocketFactory sf = SocketFactory.getDefault();
+		Socket socket;
 		try {
-			socket = (SSLSocket) sf.createSocket(host, port);
+			socket = sf.createSocket(host, port);
 			return socket;
 		} catch (IOException e) {
 			loggerService.logError("Couldn't create client socket", e);
@@ -43,12 +47,12 @@ public class SecureSocketService implements ISecureSocketService {
 	}
 
 	@Override
-	public SSLServerSocket getServerSocket(int port) {
+	public ServerSocket getServerSocket(int port) {
 		System.setProperty("javax.net.ssl.keyStore", propertyLoaderService.getProperty("KEY_STORE_PATH"));
 		System.setProperty("javax.net.ssl.keyStorePassword", propertyLoaderService.getProperty("KEY_STORE_PASSWORD"));
-		SSLServerSocketFactory ssf = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+		ServerSocketFactory ssf = ServerSocketFactory.getDefault();
 		try {
-			SSLServerSocket socket = (SSLServerSocket) ssf.createServerSocket(port);
+			ServerSocket socket = ssf.createServerSocket(port);
 			return socket;
 		} catch (IOException e) {
 			loggerService.logError("Couldn't create client socket", e);

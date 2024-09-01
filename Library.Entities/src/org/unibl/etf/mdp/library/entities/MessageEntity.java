@@ -5,6 +5,10 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class MessageEntity implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8203273151158995473L;
 	private String content;
 	private LocalDateTime dateTime;
 	private String sender;
