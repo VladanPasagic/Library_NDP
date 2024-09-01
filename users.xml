@@ -39,4 +39,17 @@
         <approved>true</approved>
         <port>8435</port>
     </User>
+    <User>
+        <id>bcfa2a16-b9a8-43c3-8697-1fafecb34e26</id>
+        <firstName>d</firstName>
+        <lastName>d</lastName>
+        <address>d</address>
+        <email>vladanpasagic01@gmail.com</email>
+        <username>pasha32</username>
+        <password>pasha</password>
+        <active>false</active>
+        <handled>false</handled>
+        <approved>false</approved>
+        <port>16456</port>
+    </User>
 </Users>

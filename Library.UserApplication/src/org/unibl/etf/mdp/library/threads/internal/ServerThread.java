@@ -11,7 +11,6 @@ import org.unibl.etf.mdp.library.services.SecureSocketService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
 import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
 import org.unibl.etf.mdp.library.services.interfaces.ISecureSocketService;
-import org.unibl.etf.mdp.library.services.internal.ChatService;
 import org.unibl.etf.mdp.library.services.internal.CurrentLoggedInUserService;
 
 public class ServerThread extends Thread {
@@ -20,7 +19,6 @@ public class ServerThread extends Thread {
 	private IPropertyLoaderService propertyLoaderService = PropertyLoaderService.load(loggerService, false, null);
 	private ISecureSocketService secureSocketService = SecureSocketService
 			.getSecureSocketService(propertyLoaderService);
-	private ChatService chatService = ChatService.getChatService();
 	private static ServerThread instance = null;
 
 	private ServerThread() {
@@ -38,7 +36,9 @@ public class ServerThread extends Thread {
 		while (true) {
 			try {
 				SSLSocket s = (SSLSocket) socket.accept();
-				new InternalServerThread(s).start();
+				InternalServerThread internalServerThread = new InternalServerThread(s);
+				internalServerThread.setDaemon(true);
+				internalServerThread.start();
 			} catch (IOException e) {
 				loggerService.logError("Error accepting connection", e);
 			}

@@ -1,0 +1,19 @@
+{
+  "id": "309d5ef1-2be2-4ea5-b8e2-736f18197092",
+  "receiptItems": [
+    {
+      "id": "670ea5e9-07af-41eb-931d-48648bfd188b",
+      "book": {
+        "id": "fd98607d-5f2a-4b3a-afbe-cd1ea4fbab46",
+        "name": " Scientific  American, Volume XXXVI., No. 8, February 24, 1877",
+        "author": " Various",
+        "frontPageLink": ".cover.medium.jpg",
+        "releaseDate": "September 29, 2006 [eBook #19406]",
+        "language": " English",
+        "contentPath": "C:\\Users\\pasag\\Books\\pg19406.txt"
+      },
+      "quantity": 22
+    }
+  ],
+  "price": 74.7477436239568
+}

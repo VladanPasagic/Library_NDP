@@ -5,6 +5,8 @@ import org.unibl.etf.mdp.library.repositories.UserRepository;
 import org.unibl.etf.mdp.library.repositories.interfaces.IUserRepository;
 import org.unibl.etf.mdp.library.requests.LoginRequest;
 import org.unibl.etf.mdp.library.requests.RegistrationRequest;
+import org.unibl.etf.mdp.library.responses.RegisterResponse;
+import org.unibl.etf.mdp.library.responses.Response;
 import org.unibl.etf.mdp.library.services.interfaces.IAuthenticationService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
 import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
@@ -38,17 +40,16 @@ public class AuthenticationService implements IAuthenticationService {
 	}
 
 	@Override
-	public boolean register(RegistrationRequest registrationRequest) {
+	public Response register(RegistrationRequest registrationRequest) {
 		if (userRepository.findByEmail(registrationRequest.getEmail()) != null
 				|| userRepository.findByUsername(registrationRequest.getUsername()) != null) {
-			return false;
+			return new Response(false, "Conflict detected");
 		}
 
 		userRepository.add(new UserEntity(registrationRequest.getFirstName(), registrationRequest.getLastName(),
 				registrationRequest.getAddress(), registrationRequest.getEmail(), registrationRequest.getUsername(),
 				registrationRequest.getPassword()));
-
-		return true;
+		return new Response(true, "");
 	}
 
 }

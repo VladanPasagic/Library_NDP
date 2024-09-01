@@ -1,3 +1,4 @@
 REDIS_SERVER:http://localhost:6379
 USERS_XML_PATH:C:\\Users\\pasag\\OneDrive\\Desktop\\MDP\\users.xml
-API_KEY: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
+API_KEY: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
+MAIL_SENDER:mdp@pasha.software

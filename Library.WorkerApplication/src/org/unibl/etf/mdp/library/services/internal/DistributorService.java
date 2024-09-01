@@ -1,6 +1,5 @@
 package org.unibl.etf.mdp.library.services.internal;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +11,7 @@ import org.unibl.etf.mdp.library.threads.internal.InternalServerThread;
 public class DistributorService {
 	private static DistributorService instance = null;
 	private Map<DistributorEntity, InternalServerThread> entities = new HashMap<DistributorEntity, InternalServerThread>();
-	private List<BookEntity> currentBooks = new ArrayList<BookEntity>();
+	private List<BookEntity> currentBooks;
 
 	private DistributorService() {
 

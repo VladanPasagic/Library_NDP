@@ -34,9 +34,10 @@ public class BookKeepingService implements IBookkeepingService {
 		}
 		double rand = new Random().nextDouble() * 5;
 		double price = rand * bookCount;
-		ReceiptEntity receiptEntity = new ReceiptEntity(receiptItems, price);
+		ReceiptEntity receiptEntity = new ReceiptEntity(receiptItems, Math.round(price * 100) / 100);
 		receiptService.saveReceipt(receiptEntity);
-		return ((double) Integer.parseInt(propertyLoaderService.getProperty("PDV"))) / 100 * price;
+		return Math.round(((double) Integer.parseInt(propertyLoaderService.getProperty("PDV"))) / 100 * price * 100)
+				/ 100;
 	}
 
 }

@@ -78,6 +78,7 @@ public class OrdersController implements Initializable {
 
 	@FXML
 	private void loadBooksFromDistributor(ActionEvent event) {
+		DistributorService.getDistributorService().setCurrentBooks(null);
 		books.clear();
 		DistributorEntity distributor = distributorComboBox.getSelectionModel().getSelectedItem();
 		if (distributor == null) {

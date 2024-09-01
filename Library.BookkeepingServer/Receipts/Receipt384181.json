@@ -1,0 +1,19 @@
+{
+  "id": "0e6e71f6-8287-4dd5-879c-4b16c1c44641",
+  "receiptItems": [
+    {
+      "id": "9b307101-f8a7-4dde-8bde-a38810d1ff6f",
+      "book": {
+        "id": "7eda492e-692b-4a30-a121-714c90ccd4f6",
+        "name": " How to Succeed as an Inventor",
+        "author": " Goodwin Brooke Smith",
+        "frontPageLink": ".cover.medium.jpg",
+        "releaseDate": "August 5, 2014 [eBook #46512]",
+        "language": " English",
+        "contentPath": "C:\\Users\\pasag\\Books\\pg46512.txt"
+      },
+      "quantity": 22
+    }
+  ],
+  "price": 70.50006379476851
+}

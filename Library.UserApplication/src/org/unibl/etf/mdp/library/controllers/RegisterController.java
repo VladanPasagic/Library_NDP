@@ -8,6 +8,8 @@ import org.unibl.etf.mdp.library.helpers.AlertUtils;
 import org.unibl.etf.mdp.library.helpers.HttpUtils;
 import org.unibl.etf.mdp.library.helpers.StringUtils;
 import org.unibl.etf.mdp.library.requests.RegistrationRequest;
+import org.unibl.etf.mdp.library.responses.RegisterResponse;
+import org.unibl.etf.mdp.library.responses.Response;
 import org.unibl.etf.mdp.library.services.LoggerService;
 import org.unibl.etf.mdp.library.services.PropertyLoaderService;
 import org.unibl.etf.mdp.library.services.SceneSwitcherService;
@@ -65,8 +67,13 @@ public class RegisterController {
 		}
 		RegistrationRequest request = new RegistrationRequest(firstName.getText(), lastName.getText(),
 				address.getText(), email.getText(), username.getText(), password.getText());
-		boolean success = HttpUtils.post(propertyLoaderService.getProperty("LIBRARY_SERVER") + "auth/register", request,
-				Boolean.class);
+		Response response = HttpUtils.post(propertyLoaderService.getProperty("LIBRARY_SERVER") + "auth/register",
+				request, Response.class);
+		if (response.isSuccess() == false) {
+			AlertUtils.setAlert(AlertType.ERROR, "Error registering", null, response.getMessage());
+		} else {
+			handleSwitchToLogin(event);
+		}
 
 	}
 

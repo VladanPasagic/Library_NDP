@@ -36,7 +36,7 @@ public class UsersController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<UserEntity> getUsers() {
-		return userService.getAll().stream().filter(entity -> entity.isHandled() == true).toList();
+		return userService.getAll().stream().filter(entity -> entity.isHandled() == true && entity.isApproved() == true).toList();
 	}
 
 	@GET

@@ -27,13 +27,25 @@ public class HttpUtils {
 		WebTarget target = client.target(url);
 		Response response = target.request(MediaType.APPLICATION_JSON)
 				.post(Entity.entity(body, MediaType.APPLICATION_JSON));
-		if (response.getStatus() == 201 || response.getStatus() == 200) {
+		if (response.getStatus() == 201 || response.getStatus() == 200 || response.getStatus() == 409) {
 			G responseEntity = response.readEntity(responseType);
 			close(response, client);
 			return responseEntity;
 		} else {
 			close(response, client);
 			return null;
+		}
+	}
+
+	public static <T> void post(String url, T body) {
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target(url);
+		Response response = target.request(MediaType.APPLICATION_JSON)
+				.post(Entity.entity(body, MediaType.APPLICATION_JSON));
+		if (response.getStatus() == 201 || response.getStatus() == 200) {
+			close(response, client);
+		} else {
+			close(response, client);
 		}
 	}
 

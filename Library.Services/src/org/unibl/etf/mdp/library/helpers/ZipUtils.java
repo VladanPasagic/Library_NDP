@@ -17,14 +17,20 @@ public class ZipUtils {
 
 	public static File zipFiles(String fileName, List<String> files) {
 		try {
-			FileOutputStream fos = new FileOutputStream(fileName);
+			String path = System.getProperty("user.home") + "/ZIPS/";
+			File dir = new File(path);
+			if (dir.exists() == false) {
+				dir.mkdirs();
+			}
+			File file = new File(path + fileName);
+			file.createNewFile();
+			FileOutputStream fos = new FileOutputStream(file);
 			ZipOutputStream zos = new ZipOutputStream(fos);
 			for (String src : files) {
-				File file = new File(src);
-				FileInputStream fis = new FileInputStream(file);
-				ZipEntry entry = new ZipEntry(file.getName());
+				File bookFile = new File(src);
+				FileInputStream fis = new FileInputStream(bookFile);
+				ZipEntry entry = new ZipEntry(bookFile.getName());
 				zos.putNextEntry(entry);
-
 				byte[] bytes = new byte[1024];
 				int length;
 				while ((length = fis.read(bytes)) >= 0) {
@@ -35,12 +41,12 @@ public class ZipUtils {
 			}
 			zos.close();
 			fos.close();
+			return file;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			loggerService.logError("File not found", e);
 		} catch (IOException ex) {
+			loggerService.logError("Exception writing to file", ex);
 		}
-		File file = new File(fileName);
-		return file;
+		return null;
 	}
 }
