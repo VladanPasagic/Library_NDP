@@ -9,6 +9,9 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.util.List;
+import java.util.UUID;
 
 import org.unibl.etf.mdp.library.entities.BookEntity;
 import org.unibl.etf.mdp.library.services.interfaces.IGutenbergService;
@@ -32,35 +35,32 @@ public class GutenbergService implements IGutenbergService {
 	@Override
 	public BookEntity getBook(String url) {
 		BookEntity entity = new BookEntity();
-		if (url.startsWith("http://") || url.startsWith("https://")) {
-			String[] urlParts = url.split("/");
-			try {
-				URL book = new URI(url).toURL();
-				BufferedReader reader = new BufferedReader(new InputStreamReader(book.openStream()));
-				String workingDirectory = System.getProperty("user.home");
-				File dir = new File(workingDirectory + File.separatorChar + "Books");
-				if (dir.exists() == false)
-					dir.mkdirs();
-				File file = new File(dir.getPath() + File.separatorChar + urlParts[urlParts.length - 1]);
-				file.createNewFile();
-				PrintWriter pw = new PrintWriter(file);
-				String line = "";
-				while ((line = reader.readLine()) != null) {
-					lineChecker(entity, line);
-					pw.println(line);
-				}
-				pw.close();
-				entity.setContent(file.getPath());
-			} catch (MalformedURLException ex) {
-				loggerService.logError("Malformed URL", ex);
-			} catch (URISyntaxException ex) {
-				loggerService.logError("Error in URI syntax", ex);
-			} catch (IOException ex) {
-				loggerService.logError("Exception while opening stream", ex);
+		String[] urlParts = url.split("/");
+		try {
+			URL book = new URI(url).toURL();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(book.openStream()));
+			String workingDirectory = System.getProperty("user.home");
+			File dir = new File(workingDirectory + File.separatorChar + "Books");
+			if (dir.exists() == false)
+				dir.mkdirs();
+			File file = new File(dir.getPath() + File.separatorChar + urlParts[urlParts.length - 1]);
+			file.createNewFile();
+			PrintWriter pw = new PrintWriter(file);
+			String line = "";
+			while ((line = reader.readLine()) != null) {
+				lineChecker(entity, line);
+				pw.println(line);
 			}
+			pw.close();
+			entity.setContent(file.getPath());
 			entity.setFrontPageLink(getFrontPageLink(url));
-		} else {
-			entity.setContent(url);
+			entity.setId(UUID.randomUUID());
+		} catch (MalformedURLException ex) {
+			loggerService.logError("Malformed URL", ex);
+		} catch (URISyntaxException ex) {
+			loggerService.logError("Error in URI syntax", ex);
+		} catch (IOException ex) {
+			loggerService.logError("Exception while opening stream", ex);
 		}
 		return entity;
 	}
@@ -81,7 +81,7 @@ public class GutenbergService implements IGutenbergService {
 	}
 
 	private String getFrontPageLink(String url) {
-		String[] urlParts = url.split(".");
+		String[] urlParts = url.split("\\.");
 		StringBuilder ret = new StringBuilder();
 		for (int i = 0; i < urlParts.length - 1; i++) {
 			ret.append(urlParts[i]);

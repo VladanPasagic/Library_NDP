@@ -50,6 +50,7 @@ public class ServerThread extends Thread {
 					List<String> lines = Files.readAllLines(Path.of(propertyLoaderService.getProperty(BOOK_LIST)));
 					for (String line : lines) {
 						BookEntity book = gutenbergService.getBook(line);
+						book.setContent(line);
 						book.setId(UUID.randomUUID());
 						books.add(book);
 					}

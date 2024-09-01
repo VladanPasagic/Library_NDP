@@ -65,10 +65,8 @@ public class BookController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response postBook(NewBookRequest request) {
 		BookEntity book = gutenbergService.getBook(request.getContentPath());
-		BookEntity bookEntity = new BookEntity(request.getISBN(), request.getName(), request.getAuthor(),
-				request.getFrontPageLink(), request.getReleaseDate(), request.getLanguage(), book.getContentPath());
-		bookRepository.add(bookEntity);
-		return Response.status(201).build();
+		bookRepository.add(book);
+		return Response.status(201).entity(book).build();
 	}
 
 	@PUT

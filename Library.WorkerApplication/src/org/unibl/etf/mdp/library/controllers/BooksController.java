@@ -28,7 +28,6 @@ public class BooksController implements Initializable {
 
 	private ILoggerService loggerService = LoggerService.getLogger(getClass().getName());
 	private IPropertyLoaderService propertyLoaderService = PropertyLoaderService.load(loggerService, false, null);
-	private IGutenbergService gutenbergService = GutenbergService.getGutenbergService();
 
 	private MenuController menuController = new MenuController();
 
@@ -92,16 +91,10 @@ public class BooksController implements Initializable {
 			AlertUtils.setAlert(AlertType.INFORMATION, "Field empty", null, "Field cannot be empty");
 			return;
 		}
-		BookEntity book = gutenbergService.getBook(bookField.getText());
 		NewBookRequest bookRequest = new NewBookRequest();
-		bookRequest.setAuthor(book.getAuthor());
-		bookRequest.setContentPath(book.getContentPath());
-		bookRequest.setFrontPageLink(book.getFrontPageLink());
-		bookRequest.setISBN(book.getISBN());
-		bookRequest.setLanguage(book.getLanguage());
-		bookRequest.setName(book.getName());
-		bookRequest.setReleaseDate(book.getReleaseDate());
-		HttpUtils.post(propertyLoaderService.getProperty("LIBRARY_SERVER") + "books", bookRequest);
+		bookRequest.setContentPath(bookField.getText());
+		BookEntity book = HttpUtils.post(propertyLoaderService.getProperty("LIBRARY_SERVER") + "books", bookRequest,
+				BookEntity.class);
 		books.add(book);
 		tableView.refresh();
 	}

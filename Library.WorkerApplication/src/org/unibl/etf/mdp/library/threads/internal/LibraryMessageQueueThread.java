@@ -3,9 +3,11 @@ package org.unibl.etf.mdp.library.threads.internal;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+import org.unibl.etf.mdp.library.entities.BookEntity;
 import org.unibl.etf.mdp.library.entities.OrderEntity;
 import org.unibl.etf.mdp.library.entities.OrderItemEntity;
 import org.unibl.etf.mdp.library.helpers.HttpUtils;
+import org.unibl.etf.mdp.library.requests.NewBookRequest;
 import org.unibl.etf.mdp.library.services.LoggerService;
 import org.unibl.etf.mdp.library.services.MessageQueueService;
 import org.unibl.etf.mdp.library.services.PropertyLoaderService;
@@ -34,8 +36,16 @@ public class LibraryMessageQueueThread extends Thread {
 				if (order != null) {
 					System.out.println(order.getId());
 					for (OrderItemEntity orderItem : order.getItems()) {
-						HttpUtils.post(propertyLoaderService.getProperty("LIBRARY_SERVER") + "books",
-								orderItem.getBook());
+						BookEntity book = orderItem.getBook();
+						NewBookRequest bookRequest = new NewBookRequest();
+						bookRequest.setAuthor(book.getAuthor());
+						bookRequest.setContentPath(book.getContentPath());
+						bookRequest.setFrontPageLink(book.getFrontPageLink());
+						bookRequest.setISBN(book.getISBN());
+						bookRequest.setLanguage(book.getLanguage());
+						bookRequest.setName(book.getName());
+						bookRequest.setReleaseDate(book.getReleaseDate());
+						HttpUtils.post(propertyLoaderService.getProperty("LIBRARY_SERVER") + "books", bookRequest);
 					}
 				}
 				Thread.sleep(1000);
