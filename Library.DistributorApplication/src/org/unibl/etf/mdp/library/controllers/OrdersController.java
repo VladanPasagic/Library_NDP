@@ -2,6 +2,10 @@ package org.unibl.etf.mdp.library.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeoutException;
 
@@ -11,6 +15,7 @@ import org.unibl.etf.mdp.library.helpers.AlertUtils;
 import org.unibl.etf.mdp.library.services.LoggerService;
 import org.unibl.etf.mdp.library.services.MessageQueueService;
 import org.unibl.etf.mdp.library.services.PropertyLoaderService;
+import org.unibl.etf.mdp.library.services.interfaces.IBookkeepingService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
 import org.unibl.etf.mdp.library.services.interfaces.IMessageQueueService;
 import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
@@ -62,7 +67,20 @@ public class OrdersController implements Initializable {
 			AlertUtils.setAlert(AlertType.INFORMATION, "No order", null, "NO ORDER");
 			return;
 		}
-
+		try {
+			Registry registry = LocateRegistry
+					.getRegistry(Integer.parseInt(propertyLoaderService.getProperty("RMI_PORT")));
+			IBookkeepingService bookkeepingService = (IBookkeepingService) registry
+					.lookup(propertyLoaderService.getProperty("RMI_NAME"));
+			bookkeepingService.generateReceipt(orderEntity);
+			System.out.println("Started method invocation");
+		} catch (NumberFormatException e) {
+			loggerService.logError("Error parsing number", e);
+		} catch (RemoteException e) {
+			loggerService.logError("Error with RMI", e);
+		} catch (NotBoundException e) {
+			loggerService.logError("RMI Service not bound", e);
+		}
 	}
 
 	@FXML
@@ -86,6 +104,12 @@ public class OrdersController implements Initializable {
 			Connection connection = messageQueueService.createConnection(host, user, pass);
 			orderEntity = messageQueueService.receive(connection,
 					CurrentLoggedInUserService.distributorEntity.getName());
+			if (orderEntity == null) {
+				AlertUtils.setAlert(AlertType.INFORMATION, "Nothing found", null, "No more orders found");
+			}
+			for (OrderItemEntity orderItemEntity : orderEntity.getItems()) {
+				orderItems.add(orderItemEntity);
+			}
 			connection.close();
 		} catch (IOException | TimeoutException e) {
 			loggerService.logError("Couldn't load rabbit mq", e);

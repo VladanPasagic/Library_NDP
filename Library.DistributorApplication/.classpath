@@ -31,5 +31,11 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/Library.DistributorApplication/lib/slf4j-api-2.0.16.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/Library.DistributorApplication/lib/gson-2.11.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

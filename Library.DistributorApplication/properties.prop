@@ -6,3 +6,5 @@ RABBIT_HOST:localhost
 RABBIT_USER:guest
 RABBIT_PASS:guest
 POLICY_FILE:C:\\Users\\pasag\\OneDrive\\Desktop\\MDP\\Library.DistributorApplication\\client_policyfile.txt
+RMI_PORT:1099
+RMI_NAME:BookkeepingService

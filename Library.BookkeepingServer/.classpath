@@ -16,5 +16,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/pasag/OneDrive/Desktop/MDP/Library.BookkeepingServer/lib/gson-2.11.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

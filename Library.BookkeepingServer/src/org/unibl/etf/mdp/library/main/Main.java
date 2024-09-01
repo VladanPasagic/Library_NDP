@@ -22,13 +22,12 @@ public class Main {
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
 		}
-
 		try {
 			BookKeepingService service = new BookKeepingService();
 			IBookkeepingService stub = (IBookkeepingService) UnicastRemoteObject.exportObject(service, 0);
 			Registry registry = LocateRegistry
 					.createRegistry(Integer.parseInt(propertyLoaderService.getProperty("REGISTRY_PORT")));
-			registry.rebind("BookkeepingService", stub);
+			registry.rebind(propertyLoaderService.getProperty("RMI_NAME"), stub);
 		} catch (Exception e) {
 			loggerService.logError("Errors occurred while setting up RMI", e);
 		}

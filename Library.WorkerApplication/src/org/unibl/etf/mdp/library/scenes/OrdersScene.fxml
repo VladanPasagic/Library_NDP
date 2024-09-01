@@ -52,7 +52,7 @@
 			<columns>
 				<TableColumn text="Book name">
 					<cellValueFactory>
-						<PropertyValueFactory property="bookName" />
+						<PropertyValueFactory property="book" />
 					</cellValueFactory>
 				</TableColumn>
 				<TableColumn text="Quantity">

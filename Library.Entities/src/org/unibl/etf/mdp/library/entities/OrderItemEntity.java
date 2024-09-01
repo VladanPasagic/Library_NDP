@@ -10,7 +10,7 @@ public class OrderItemEntity implements Serializable {
 	private static final long serialVersionUID = 8837733804232325292L;
 	private UUID id;
 	private UUID bookId;
-	private String bookName;
+	private BookEntity book;
 	private int quantity;
 
 	public UUID getId() {
@@ -37,20 +37,20 @@ public class OrderItemEntity implements Serializable {
 		this.quantity = quantity;
 	}
 
-	public String getBookName() {
-		return bookName;
+	public BookEntity getBook() {
+		return book;
 	}
 
-	public void setBookName(String bookName) {
-		this.bookName = bookName;
+	public void setBook(BookEntity book) {
+		this.book = book;
 	}
 
-	public OrderItemEntity(UUID bookId, int quantity, String bookName) {
+	public OrderItemEntity(UUID bookId, int quantity, BookEntity book) {
 		super();
 		id = UUID.randomUUID();
 		this.bookId = bookId;
 		this.quantity = quantity;
-		this.bookName = bookName;
+		this.book = book;
 	}
 
 	public OrderItemEntity() {

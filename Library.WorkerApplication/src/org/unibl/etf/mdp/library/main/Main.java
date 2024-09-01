@@ -5,7 +5,9 @@ import java.net.URL;
 import java.nio.file.Paths;
 
 import org.unibl.etf.mdp.library.services.LoggerService;
+import org.unibl.etf.mdp.library.services.PropertyLoaderService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
+import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
 import org.unibl.etf.mdp.library.threads.internal.ServerThread;
 
 import javafx.application.Application;

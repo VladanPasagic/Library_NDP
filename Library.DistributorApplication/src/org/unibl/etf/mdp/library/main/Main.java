@@ -5,7 +5,9 @@ import java.net.URL;
 import java.nio.file.Paths;
 
 import org.unibl.etf.mdp.library.services.LoggerService;
+import org.unibl.etf.mdp.library.services.PropertyLoaderService;
 import org.unibl.etf.mdp.library.services.interfaces.ILoggerService;
+import org.unibl.etf.mdp.library.services.interfaces.IPropertyLoaderService;
 import org.unibl.etf.mdp.library.threads.internal.ClientThread;
 
 import javafx.application.Application;
@@ -17,9 +19,13 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	private ILoggerService loggerService = LoggerService.getLogger(getClass().getName());
+	private IPropertyLoaderService propertyLoaderService = PropertyLoaderService.load(loggerService, false, null);
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		System.setProperty("java.security.policy", propertyLoaderService.getProperty("POLICY_FILE"));
+		if (System.getSecurityManager() == null)
+			System.setSecurityManager(new SecurityManager());
 		new ClientThread().start();
 		try {
 			URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/BooksScene.fxml").toUri().toURL();

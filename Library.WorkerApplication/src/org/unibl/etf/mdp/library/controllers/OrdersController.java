@@ -175,7 +175,6 @@ public class OrdersController implements Initializable {
 			AlertUtils.setAlert(AlertType.ERROR, "Value must be a number", null, "Value of the field must be null");
 			return;
 		}
-
 		if (value != 0) {
 			boolean found = false;
 			for (OrderItemEntity orderItemEntity : orders) {
@@ -186,7 +185,7 @@ public class OrdersController implements Initializable {
 				}
 			}
 			if (found == false) {
-				orders.add(new OrderItemEntity(book.getId(), value, book.toString()));
+				orders.add(new OrderItemEntity(book.getId(), value, book));
 			}
 		} else {
 			AlertUtils.setAlert(AlertType.INFORMATION, "Value cannot be 0", null, "Value cannot be 0");
