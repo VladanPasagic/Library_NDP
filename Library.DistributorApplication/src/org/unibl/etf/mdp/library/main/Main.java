@@ -26,7 +26,9 @@ public class Main extends Application {
 		System.setProperty("java.security.policy", propertyLoaderService.getProperty("POLICY_FILE"));
 		if (System.getSecurityManager() == null)
 			System.setSecurityManager(new SecurityManager());
-		new ClientThread().start();
+		ClientThread thread = new ClientThread();
+		thread.setDaemon(true);
+		thread.start();
 		try {
 			URL url = Paths.get("src/org/unibl/etf/mdp/library/scenes/BooksScene.fxml").toUri().toURL();
 			FXMLLoader loader = new FXMLLoader(url);

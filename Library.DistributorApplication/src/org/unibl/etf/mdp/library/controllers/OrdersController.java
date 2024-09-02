@@ -88,6 +88,9 @@ public class OrdersController implements Initializable {
 			IBookkeepingService bookkeepingService = (IBookkeepingService) registry
 					.lookup(propertyLoaderService.getProperty("RMI_NAME"));
 			bookkeepingService.generateReceipt(orderEntity);
+			orderItems.clear();
+			tableView.refresh();
+			orderEntity = null;
 		} catch (NumberFormatException e) {
 			loggerService.logError("Error parsing number", e);
 		} catch (RemoteException e) {
@@ -120,6 +123,7 @@ public class OrdersController implements Initializable {
 					CurrentLoggedInUserService.distributorEntity.getName());
 			if (orderEntity == null) {
 				AlertUtils.setAlert(AlertType.INFORMATION, "Nothing found", null, "No more orders found");
+				return;
 			}
 			for (OrderItemEntity orderItemEntity : orderEntity.getItems()) {
 				orderItems.add(orderItemEntity);
